@@ -21,11 +21,11 @@ rake jetty:config
 rake jetty:start
 ```
 
-2. In another shell run `rails s` in `/vagrant` 
+2. Run `rails s` in `/vagrant` 
 
 ### resources
-- [sufia 3.7.0 Documentation](http://rubydoc.info/gems/sufia/3.7.0/frames)
 - [sufia 4.0.0 rc1 Documentation](https://github.com/projecthydra/sufia)
+- [sufia 3.7.0 Documentation](http://rubydoc.info/gems/sufia/3.7.0/frames)
 - [Blacklight Project Page](https://github.com/projectblacklight/blacklight)
 - [hydra-jetty project](https://github.com/projecthydra/hydra-jetty)
 - [hydra wiki](https://github.com/projecthydra/hydra/wiki)
