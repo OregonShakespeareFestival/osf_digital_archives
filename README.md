@@ -9,16 +9,18 @@
 
 1. `rake db:migrate`
 
-##### The following commands where in the sufia documentation but are unecessary as we are using hydra-jetty for our development environment.
+2. Download a copy of hydra-jetty
 ```
 rake jetty:clean
 rake jetty:config
-rake jetty:start
 ```
 
 ### Running It
-1. Navigate to the directory `/vagrant/hydra-jetty/` and run the command `java -jar start.jar`  This will start the embedded solr and fedora instances.  solr and fedora can be reached via `localhost:8983/solr` and `localhost:8983/fedora` respectively.  
-Hydra-jetty takes a good minute or two to spool up, if an error is thrown with a java stack trace and a message about resources already allocated ensure that `rake jetty:start` has not been run, if it has been look in `/vagrant/tmp/pids` for the pid the sufia jetty process and run `kill $PID` and then restart hydra-jetty
+1. Start hydra-jetty with the provided ruby gem
+```
+rake jetty:start
+```
+
 2. In another shell run `rails s` in `/vagrant` 
 
 ### resources
