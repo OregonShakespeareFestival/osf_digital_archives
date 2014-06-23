@@ -51,4 +51,5 @@ group :development, :test do
   gem "jettywrapper"
 end
 
-gem "pivotal_git_scripts"
+gem "pivotal_git_scripts", group: :development
+gem "resque-web", require: 'resque_web'

@@ -25,6 +25,8 @@ rake jetty:start
 
 3. Start resque background worker `QUEUE=* rake resque:work`
 
+You can reach a resque dashboard at: [http://localhost:3000/resque_web](http://localhost:3000/resque_web)
+
 ### resources
 - [sufia 4.0.0 rc1 Documentation](https://github.com/projecthydra/sufia)
 - [sufia 3.7.0 Documentation](http://rubydoc.info/gems/sufia/3.7.0/frames)
