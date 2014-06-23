@@ -101,7 +101,7 @@ Sufia.config do |config|
   # config.id_namespace = "sufia"
 
   # Specify the path to the file characterization tool:
-  # config.fits_path = "fits.sh"
+  config.fits_path = "/opt/fits/fits.sh"
 
   # If browse-everything has been configured, load the configs.  Otherwise, set to nil.
   begin
