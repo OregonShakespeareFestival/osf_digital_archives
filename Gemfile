@@ -50,3 +50,5 @@ group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
 end
+
+gem "pivatol_git_scripts"
