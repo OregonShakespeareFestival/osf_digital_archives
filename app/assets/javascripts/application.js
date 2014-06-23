@@ -13,8 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //
-//= require sufia
 //
 // Required by Blacklight
 //= require blacklight/blacklight
 //= require_tree .
+//= require sufia
