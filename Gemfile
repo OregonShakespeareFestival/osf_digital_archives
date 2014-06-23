@@ -51,4 +51,4 @@ group :development, :test do
   gem "jettywrapper"
 end
 
-gem "pivatol_git_scripts"
+gem "pivotal_git_scripts"
