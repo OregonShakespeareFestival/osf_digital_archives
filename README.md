@@ -23,6 +23,8 @@ rake jetty:start
 
 2. Run `rails s` in `/vagrant` 
 
+3. Start resque background worker `QUEUE=* rake resque:work`
+
 ### resources
 - [sufia 4.0.0 rc1 Documentation](https://github.com/projecthydra/sufia)
 - [sufia 3.7.0 Documentation](http://rubydoc.info/gems/sufia/3.7.0/frames)
