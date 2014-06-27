@@ -5,8 +5,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box      = "hydra/sufia_jetty"
-  config.vm.box_url  = "https://s3-us-west-2.amazonaws.com/osfsufiabox/hydra-sufia-0.2.box"
+  config.vm.box      = "hydra/sufia.0.3"
+  config.vm.box_url  = "https://s3-us-west-2.amazonaws.com/osfsufiabox/hydra-sufia-0.3.box"
   config.vm.network   "forwarded_port", guest: 3000, host: 3000
   config.vm.network   "forwarded_port", guest: 8983, host: 8983
 
