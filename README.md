@@ -1,6 +1,14 @@
-## Developing for the OSF Digital Archive on a Mac OS box
+# OSF Digital Archive
 
-The OSF Digital Archive is derived from Sufia 4.0.0 rc1
+The OSF Digital Archive is a digital repository for audio / video assets from the Oregon Shakespeare Festival archives.
+
+The implementation is derived from Project Hydra's Sufia 4.0.0 rc1
+
+See https://github.com/projecthydra/sufia
+
+# Developing the OSF Digital Archive on Mac OS
+
+## One-time Preparations
 
 ### VirtualBox
 
@@ -45,6 +53,8 @@ Spin up hydra-jetty
     rake jetty:clean
     rake jetty:config
 
+## On-going Development
+
 ### Spinning up the services
 
 Open several tabs and `vagrant ssh` into each of them.
@@ -57,13 +67,16 @@ Open several tabs and `vagrant ssh` into each of them.
 
     rails s
 
+You can reach the application at [http://localhost:3000/](http://localhost:3000/)
+
 #### Resque (background job workers)
 
     QUEUE=* rake resque:work
 
-You can reach a resque dashboard at: [http://localhost:3000/resque_web](http://localhost:3000/resque_web)
+You can reach a resque dashboard at [http://localhost:3000/resque_web](http://localhost:3000/resque_web)
 
-### resources
+## Resources
+
 - [sufia 4.0.0 rc1 Documentation](https://github.com/projecthydra/sufia)
 - [sufia 3.7.0 Documentation](http://rubydoc.info/gems/sufia/3.7.0/frames)
 - [Blacklight Project Page](https://github.com/projectblacklight/blacklight)
