@@ -1,4 +1,4 @@
-# OSF Digital Archive
+# OSF Digital Archives
 
 The OSF Digital Archive is a digital repository for audio / video assets from the Oregon Shakespeare Festival archives.
 
@@ -6,7 +6,7 @@ The implementation is derived from Project Hydra's Sufia 4.0.0 rc1
 
 See https://github.com/projecthydra/sufia
 
-# Developing the OSF Digital Archive on Mac OS
+# Developing the OSF Digital Archives on Mac OS
 
 ## One-time Preparations
 
