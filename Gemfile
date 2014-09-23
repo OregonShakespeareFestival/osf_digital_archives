@@ -40,7 +40,7 @@ gem 'spring',        group: :development
 
 # sufia 4.0.0 rc gem
 
-gem 'sufia', github: 'projecthydra/sufia', branch: 'master'
+gem 'sufia', '~> 4.0.0'
 gem 'kaminari'
 
 gem "devise"
