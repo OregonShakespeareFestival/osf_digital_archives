@@ -48,7 +48,7 @@ Create the database
     rake db:create
     rake db:migrate
 
-Spin up hydra-jetty
+Set up hydra-jetty
 
     rake jetty:clean
     rake jetty:config
