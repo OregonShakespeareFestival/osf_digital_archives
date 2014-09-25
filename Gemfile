@@ -52,4 +52,3 @@ group :development, :test do
 end
 
 gem "pivotal_git_scripts", group: :development
-gem "resque-web", require: 'resque_web'

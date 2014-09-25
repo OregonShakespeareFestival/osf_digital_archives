@@ -1,9 +1,6 @@
-require "resque_web"
 
 Rails.application.routes.draw do
-  mount ResqueWeb::Engine => "/resque_web"
-  ResqueWeb::Engine.eager_load!
- 
+
   blacklight_for :catalog
   devise_for :users
   Hydra::BatchEdit.add_routes(self)
