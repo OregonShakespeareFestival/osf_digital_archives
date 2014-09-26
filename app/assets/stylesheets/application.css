@@ -12,4 +12,5 @@
  *
  *= require_self
  *= require sufia
+ *= require_tree ./osf
  */
