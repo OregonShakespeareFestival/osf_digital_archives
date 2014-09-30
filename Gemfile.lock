@@ -7,6 +7,12 @@ GIT
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
 
+PATH
+  remote: vendor/engines/production_credits
+  specs:
+    production_credits (0.0.1)
+      rails (~> 4.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -537,6 +543,7 @@ DEPENDENCIES
   jettywrapper
   jquery-rails
   kaminari!
+  production_credits!
   rails (= 4.1.1)
   rspec-rails
   sass-rails (~> 4.0.3)

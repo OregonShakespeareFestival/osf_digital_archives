@@ -48,6 +48,7 @@ gem "devise-guests", "~> 0.3"
 
 # gem 'resque-web', require: 'resque_web'
 
+gem 'production_credits', path: 'vendor/engines/production_credits'
 
 group :development, :test do
   gem "rspec-rails"
@@ -55,5 +56,4 @@ group :development, :test do
 end
 
 gem "exiftool"
-
 
