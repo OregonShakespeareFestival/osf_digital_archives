@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   # mount ResqueWeb::Engine => "/resque_web"
   # ResqueWeb::Engine.eager_load!
 
+  mount ProductionCredits::Engine, at: "/production_credits"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
