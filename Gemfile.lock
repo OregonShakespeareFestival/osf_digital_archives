@@ -125,6 +125,8 @@ GEM
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
     execjs (2.2.0)
+    exiftool (0.6.0)
+      json
     extlib (0.9.16)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -525,6 +527,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-guests (~> 0.3)
+  exiftool
   jbuilder (~> 2.0)
   jettywrapper
   jquery-rails
