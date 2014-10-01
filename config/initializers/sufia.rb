@@ -92,7 +92,7 @@ Sufia.config do |config|
   config.google_analytics_id = 'UA-425914-12'
 
   # Where to store tempfiles, leave blank for the system temp directory (e.g. /tmp)
-  # config.temp_file_base = '/home/developer1'
+  config.temp_file_base = '/tmp'
 
   # If you have ffmpeg installed and want to transcode audio and video uncomment this line
   # config.enable_ffmpeg = true
