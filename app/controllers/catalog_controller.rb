@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#osf -*- coding: utf-8 -*-
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
 require 'blacklight_advanced_search'
@@ -100,10 +100,6 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("desc_metadata__identifier", :stored_searchable), label: "Identifier"
 
     # show fields from osf document
-    config.add_show_field solr_name("osf_play", :stored_searchable), label: "OSF Play"
-    config.add_show_field solr_name("osf_playwright", :stored_searchable), label: "OSF Playwright"
-    config.add_show_field solr_name("osf_year", :stored_searchable), label: "OSF Year"
-    
     config.add_show_field solr_name("osf_exif_creator", :stored_searchable), label: "OSF Creator"
     config.add_show_field solr_name("osf_exif_creator_country", :stored_searchable), label: "OSF Creator Country"
     config.add_show_field solr_name("osf_exif_creator_region", :stored_searchable), label: "OSF Creator Region"
@@ -307,30 +303,6 @@ class CatalogController < ApplicationController
 
     config.add_search_field('rights') do |field|
       solr_name = solr_name("desc_metadata__rights", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-    # osf search fields
-    config.add_search_field("play") do |field|
-      solr_name = solr_name("osf_play", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field("playwright") do |field|
-      solr_name = solr_name("osf_playwright", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field("year") do |field|
-      solr_name = solr_name("osf_year", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name
