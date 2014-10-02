@@ -12,9 +12,11 @@ class GenericFile < ActiveFedora::Base
       :exif_creator_country, :exif_creator_address]
   end
 
-  # expects a has of exif metadata
+  # expects a hash of exif metadata
   def map_exif_metadata
-    puts exif_metadata
+    exif_keys = attributes.keys.select{|k| k =~ /^exif/}.map{|k| k.sub('exif_', '')}.map(&:to_sym)
+    update_attributes exif_metadata.slice(*exif_keys)
+    # puts exif_metadata
   end
 
   def exif_metadata
