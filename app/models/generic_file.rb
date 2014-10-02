@@ -2,7 +2,23 @@ class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
 
   has_metadata "osfMetadata", type: Datastreams::PlayMetadata
+  has_metadata "exifMetadata", type: Datastreams::ExifMetadata
   has_attributes :play, :playwright, :year, datastream: :osfMetadata, multiple: false
+  has_attributes :exif_creator, :exif_creator_country, :exif_creator_region, 
+    :exif_creator_postal_code, :exif_creator_city, :exif_creator_address, :exif_description, 
+    :exif_image_description, :exif_keyword, :exif_rights, :exif_subject, :exif_usage_terms,
+    datastream: :exifMetadata, multiple: false
+
+  def terms_for_display
+    self.class.terms_for_display | [:play, :playwright, :year, :exif_creator, 
+      :exif_creator_country, :exif_creator_address]
+  end
+
+  # expects a has of exif metadata
+  def map_exif_metadata(generic_file)
+    metadata = get_exif_metadata(generic_file)
+    puts metadata
+  end
 
   def get_exif_metadata(generic_file)
   	# requires Perl-Image-Exif-Tool -- needs to be added to vagrant box
@@ -16,7 +32,7 @@ class GenericFile < ActiveFedora::Base
       tmp_file.binmode
       tmp_file.write content_stream
       tmp_file.close
-      exif_metadata = Exiftool.new(tmp_filename)
+      exif_metadata = Exiftool.new(tmp_filepath)
 
     rescue IOError => e
       # log error, cannot create file
