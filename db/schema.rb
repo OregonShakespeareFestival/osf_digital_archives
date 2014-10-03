@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619060737) do
+ActiveRecord::Schema.define(version: 20141003003602) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -46,6 +46,21 @@ ActiveRecord::Schema.define(version: 20140619060737) do
   end
 
   add_index "content_blocks", ["name"], name: "index_content_blocks_on_name", unique: true
+
+  create_table "credits", force: true do |t|
+    t.string  "credit_type"
+    t.integer "work_id"
+    t.integer "production_id"
+    t.integer "performance_id"
+    t.integer "role_id"
+    t.integer "person_id"
+  end
+
+  add_index "credits", ["performance_id"], name: "index_credits_on_performance_id"
+  add_index "credits", ["person_id"], name: "index_credits_on_person_id"
+  add_index "credits", ["production_id"], name: "index_credits_on_production_id"
+  add_index "credits", ["role_id"], name: "index_credits_on_role_id"
+  add_index "credits", ["work_id"], name: "index_credits_on_work_id"
 
   create_table "domain_terms", force: true do |t|
     t.string "model"
@@ -144,6 +159,47 @@ ActiveRecord::Schema.define(version: 20140619060737) do
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
 
+  create_table "names", force: true do |t|
+    t.string   "full_name"
+    t.integer  "person_id"
+    t.integer  "venue_id"
+    t.datetime "cannonized_at"
+  end
+
+  add_index "names", ["person_id"], name: "index_names_on_person_id"
+  add_index "names", ["venue_id"], name: "index_names_on_venue_id"
+
+  create_table "people", force: true do |t|
+    t.string "denormalized_full_name"
+    t.string "disambiguation"
+    t.date   "date_of_birth"
+  end
+
+  create_table "performances", force: true do |t|
+    t.integer  "production_id"
+    t.datetime "performed_at"
+  end
+
+  add_index "performances", ["production_id"], name: "index_performances_on_production_id"
+
+  create_table "productions", force: true do |t|
+    t.integer "work_id"
+    t.date    "open_on"
+    t.date    "close_on"
+  end
+
+  add_index "productions", ["work_id"], name: "index_productions_on_work_id"
+
+  create_table "roles", force: true do |t|
+    t.string  "category"
+    t.string  "name"
+    t.integer "work_id"
+    t.integer "production_id"
+  end
+
+  add_index "roles", ["production_id"], name: "index_roles_on_production_id"
+  add_index "roles", ["work_id"], name: "index_roles_on_work_id"
+
   create_table "searches", force: true do |t|
     t.text     "query_params"
     t.integer  "user_id"
@@ -223,6 +279,11 @@ ActiveRecord::Schema.define(version: 20140619060737) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
+  create_table "venues", force: true do |t|
+    t.string "denormalized_name"
+    t.date   "opened_on"
+  end
+
   create_table "version_committers", force: true do |t|
     t.string   "obj_id"
     t.string   "datastream_id"
@@ -230,6 +291,12 @@ ActiveRecord::Schema.define(version: 20140619060737) do
     t.string   "committer_login"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "works", force: true do |t|
+    t.string  "title"
+    t.string  "medium"
+    t.integer "year"
   end
 
 end
