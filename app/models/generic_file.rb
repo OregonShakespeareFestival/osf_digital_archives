@@ -26,7 +26,7 @@ class GenericFile < ActiveFedora::Base
     begin
       # fetch bytestring of content
       content_stream = datastreams.fetch('content').content
-      tmp_filepath = Sufia.config.temp_file_base + '/tmp_' + title.to_s
+      tmp_filepath = Sufia.config.temp_file_base + '/tmp_' + title.join(" ").to_s
       tmp_file = File.new(tmp_filepath, 'w')
       tmp_file.binmode
       tmp_file.write content_stream
