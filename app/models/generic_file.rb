@@ -4,7 +4,7 @@ class GenericFile < ActiveFedora::Base
   has_metadata "exifMetadata", type: Datastreams::ExifMetadata
   has_attributes :exif_creator, :exif_creator_country, :exif_creator_region,
     :exif_creator_postal_code, :exif_creator_city, :exif_creator_address, :exif_description,
-    :exif_image_description, :exif_keyword, :exif_rights, :exif_subject, :exif_usage_terms,
+    :exif_image_description, :exif_keyword, :exif_subject, :exif_usage_terms,
     datastream: :exifMetadata, multiple: false
 
   def terms_for_display
