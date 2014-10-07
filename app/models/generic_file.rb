@@ -2,28 +2,37 @@ class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
 
   has_metadata "exifMetadata", type: Datastreams::ExifMetadata
-  has_attributes :exif_creator, :exif_creator_address, :exif_description, :exif_image_description, 
+  has_attributes :exif_creator, :exif_creator_address, :exif_description, :exif_image_description,
     :exif_usage_terms, datastream: :exifMetadata, multiple: false
-  has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true   
+  has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true
 
   def terms_for_display
     self.class.terms_for_display | [:exif_creator, :exif_creator_address, :exif_description,
       :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
   end
-  
+
   # expects a hash of exif metadata
   def map_exif_metadata
     ignore_keys = [:version]
-    exif_keys = attributes.keys.select{|k| k =~ /^exif/}.map{|k| k.sub('exif_', '')}.map(&:to_sym)
-    update_attributes Hash[exif_metadata.slice(*exif_keys - ignore_keys).map{|k,v| ["exif_#{k}", v]}]
-    # puts exif_metadata
+
+    #keys that exist in generic_file that are prefixed with exif_
+    exif_keys = attributes.keys.select{|k| k =~ /^exif/}
+
+    #keys that we will use to select the data we want from the exif data
+    extraction_keys = exif_keys.map{|k| k.sub('exif_', '')}.map(&:to_sym)
+
+    exif_data = exif_metadata.slice(*extraction_keys - ignore_keys)
+
+    #rehash with exif_ prefix to map to attributes
+    update_attributes! Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
+
   end
 
   def exif_metadata
   	# requires Perl-Image-Exif-Tool -- needs to be added to vagrant box
   	# requires exiftool gem, may replace with exiftool_vendored to remove additional dependency
 
-    begin
+    # begin
       # fetch bytestring of content
       content_stream = datastreams.fetch('content').content
       tmp_filepath = Sufia.config.temp_file_base + '/tmp_' + title.join(" ").to_s
@@ -33,19 +42,20 @@ class GenericFile < ActiveFedora::Base
       tmp_file.close
       metadata = Exiftool.new(tmp_filepath)
 
-    rescue IOError => e
-      # log error, cannot create file
-    rescue KeyError => e
-      # log error, content stream not found for file
-    rescue Exiftool::ExiftoolNotInstalled => e
-      # log error, missing dependency Perl-Image-Exif-Tool
-    rescue Exiftool::NoSuchFile => e
-      # log error, temp file was not written
-    end
-    if metadata.errors?
-      # log error parsing temp file
-      # return something different?
-    end
+    # TODO: better to comment these out if they aren't going to log errors
+    # rescue IOError => e
+    #   # log error, cannot create file
+    # rescue KeyError => e
+    #   # log error, content stream not found for file
+    # rescue Exiftool::ExiftoolNotInstalled => e
+    #   # log error, missing dependency Perl-Image-Exif-Tool
+    # rescue Exiftool::NoSuchFile => e
+    #   # log error, temp file was not written
+    # end
+    # if metadata.errors?
+    #   # log error parsing temp file
+    #   # return something different?
+    # end
     if File.exist?(tmp_filepath)
       File.delete(tmp_file)
       # check if null and return something else?
@@ -54,5 +64,18 @@ class GenericFile < ActiveFedora::Base
   	return metadata.to_hash
 
   end
+
+  private
+
+  def sanitized_exif_value(v)
+    return v if v.kind_of? String
+
+    if v.kind_of? Array
+      v.join ", "
+    else
+      v.to_s
+    end
+  end
+
 
 end
