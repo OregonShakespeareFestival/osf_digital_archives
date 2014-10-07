@@ -13,6 +13,7 @@ class GenericFile < ActiveFedora::Base
 
   # expects a hash of exif metadata
   def map_exif_metadata
+    # logger.info "MAPPING EXIF DATA FOR FILE #{id}"
     ignore_keys = [:version]
 
     #keys that exist in generic_file that are prefixed with exif_
@@ -24,7 +25,11 @@ class GenericFile < ActiveFedora::Base
     exif_data = exif_metadata.slice(*extraction_keys - ignore_keys)
 
     #rehash with exif_ prefix to map to attributes
-    update_attributes! Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
+    if update_attributes Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
+      logger.info "MAPPED EXIF DATA FOR FILE #{id}"
+    else
+      logger.debug "ERROR MAPPING EXIF DATA FOR FILE #{id}"
+    end
 
   end
 
