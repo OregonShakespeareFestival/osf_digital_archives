@@ -101,14 +101,10 @@ class CatalogController < ApplicationController
 
     # show fields from osf document
     config.add_show_field solr_name("osf_exif_creator", :stored_searchable), label: "OSF Creator"
-    config.add_show_field solr_name("osf_exif_creator_country", :stored_searchable), label: "OSF Creator Country"
-    config.add_show_field solr_name("osf_exif_creator_region", :stored_searchable), label: "OSF Creator Region"
-    config.add_show_field solr_name("osf_exif_creator_postal_code", :stored_searchable), label: "OSF Postal Code"
-    config.add_show_field solr_name("osf_exif_creator_city", :stored_searchable), label: "OSF Creator City"
     config.add_show_field solr_name("osf_exif_creator_address", :stored_searchable), label: "OSF Creator Address"
     config.add_show_field solr_name("osf_exif_description", :stored_searchable), label: "OSF Exif Description"
-    config.add_show_field solr_name("osf_exif_keyword", :stored_searchable), label: "OSF Exif Keyword"
-    config.add_show_field solr_name("osf_exif_rights", :stored_searchable), label: "OSF Exif Rights"
+    config.add_show_field solr_name("osf_exif_image_description", :stored_searchable), label: "OSF Exif Image Description"
+    config.add_show_field solr_name("osf_exif_keywords", :stored_searchable), label: "OSF Exif Keyword"
     config.add_show_field solr_name("osf_exif_subject", :stored_searchable), label: "OSF Subject"
     config.add_show_field solr_name("osf_exif_usage_terms", :stored_searchable), label: "OSF Exif Usage Terms"
 
@@ -317,38 +313,6 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field("exif_creator_country") do |field|
-      solr_name = solr_name("osf_exif_creator_country", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field("exif_creator_region") do |field|
-      solr_name = solr_name("osf_exif_creator_region", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field("exif_creator_postal_code") do |field|
-      solr_name = solr_name("osf_exif_creator_postal_code", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field("exif_creator_city") do |field|
-      solr_name = solr_name("osf_exif_creator_city", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
     config.add_search_field("exif_creator_address") do |field|
       solr_name = solr_name("osf_exif_creator_address", :stored_searchable)
       field.solr_local_parameters = {
@@ -365,16 +329,16 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field("exif_keyword") do |field|
-      solr_name = solr_name("osf_exif_keyword", :stored_searchable)
+    config.add_search_field("exif_image_description") do |field|
+      solr_name = solr_name("osf_exif_image_description", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name
       }
     end
 
-    config.add_search_field("exif_rights") do |field|
-      solr_name = solr_name("osf_exif_rights", :stored_searchable)
+    config.add_search_field("exif_keywords") do |field|
+      solr_name = solr_name("osf_exif_keyword", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

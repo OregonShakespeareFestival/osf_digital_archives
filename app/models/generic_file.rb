@@ -2,20 +2,20 @@ class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
 
   has_metadata "exifMetadata", type: Datastreams::ExifMetadata
-  has_attributes :exif_creator, :exif_creator_country, :exif_creator_region,
-    :exif_creator_postal_code, :exif_creator_city, :exif_creator_address, :exif_description,
-    :exif_image_description, :exif_keyword, :exif_subject, :exif_usage_terms,
-    datastream: :exifMetadata, multiple: false
+  has_attributes :exif_creator, :exif_creator_address, :exif_description, :exif_image_description, 
+    :exif_usage_terms, datastream: :exifMetadata, multiple: false
+  has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true   
 
   def terms_for_display
-    self.class.terms_for_display | [:exif_creator,
-      :exif_creator_country, :exif_creator_address]
+    self.class.terms_for_display | [:exif_creator, :exif_creator_address, :exif_description,
+      :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
   end
-
+  
   # expects a hash of exif metadata
   def map_exif_metadata
+    ignore_keys = [:version]
     exif_keys = attributes.keys.select{|k| k =~ /^exif/}.map{|k| k.sub('exif_', '')}.map(&:to_sym)
-    update_attributes exif_metadata.slice(*exif_keys)
+    update_attributes Hash[exif_metadata.slice(*exif_keys - ignore_keys).map{|k,v| ["exif_#{k}", v]}]
     # puts exif_metadata
   end
 
