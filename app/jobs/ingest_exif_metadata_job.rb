@@ -1,6 +1,6 @@
 class IngestExifMetadataJob < ActiveFedoraPidBasedJob
   def queue_name
-    :ingest
+    :exif_ingest
   end
 
   def run

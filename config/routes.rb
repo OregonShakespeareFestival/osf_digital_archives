@@ -1,3 +1,5 @@
+require "resque_web"
+
 
 Rails.application.routes.draw do
 
@@ -8,6 +10,9 @@ Rails.application.routes.draw do
   # This behavior seems to show up only in production mode.
   mount Sufia::Engine => '/'
   root to: 'homepage#index'
+
+  mount ResqueWeb::Engine => "/resque_web"
+  ResqueWeb::Engine.eager_load!
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

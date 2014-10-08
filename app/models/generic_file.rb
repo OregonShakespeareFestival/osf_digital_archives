@@ -11,6 +11,12 @@ class GenericFile < ActiveFedora::Base
       :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
   end
 
+  def terms_for_editing
+    # terms_for_editing.reject{|t| t =~ /^exif/}
+    t = terms_for_display - [:date_modified, :date_uploaded, :format]
+    t.reject{|t| t =~ /^exif/}
+  end
+
   # expects a hash of exif metadata
   def map_exif_metadata
     # logger.info "MAPPING EXIF DATA FOR FILE #{id}"
@@ -25,11 +31,8 @@ class GenericFile < ActiveFedora::Base
     exif_data = exif_metadata.slice(*extraction_keys - ignore_keys)
 
     #rehash with exif_ prefix to map to attributes
-    if update_attributes Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
-      logger.info "MAPPED EXIF DATA FOR FILE #{id}"
-    else
-      logger.debug "ERROR MAPPING EXIF DATA FOR FILE #{id}"
-    end
+    # can this be done with iteration and self.send to build the hash?
+    update_attributes Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
 
   end
 
