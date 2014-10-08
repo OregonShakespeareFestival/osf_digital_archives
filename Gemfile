@@ -46,7 +46,7 @@ gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 gem "devise"
 gem "devise-guests", "~> 0.3"
 
-gem 'resque-web', require: 'resque_web'
+# gem 'resque-web', require: 'resque_web'
 
 
 group :development, :test do

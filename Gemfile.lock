@@ -370,12 +370,6 @@ GEM
       rake
       resque (~> 1.20)
       trollop (~> 1.16)
-    resque-web (0.0.6)
-      coffee-rails
-      jquery-rails
-      resque
-      sass-rails
-      twitter-bootstrap-rails
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -517,11 +511,6 @@ GEM
     trollop (1.16.2)
     turbolinks (2.2.2)
       coffee-rails
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
     uber (0.0.8)
@@ -549,7 +538,6 @@ DEPENDENCIES
   jquery-rails
   kaminari!
   rails (= 4.1.1)
-  resque-web
   rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
