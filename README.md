@@ -75,6 +75,20 @@ You can reach the application at [http://localhost:3000/](http://localhost:3000/
 
 You can reach a resque dashboard at [http://localhost:3000/resque_web](http://localhost:3000/resque_web)
 
+
+###### STAGING
+
+ssh -i hydra.pem ec2-user@hydra.osfashland.org
+> git pull origin xxxxx
+** bundle, migrate, ect
+> start_rails
+> start_resque
+
+### if you want to see outputs
+# screen -x rails
+# screen -x resque
+
+
 ## Resources
 
 - [sufia 4.0.0 rc1 Documentation](https://github.com/projecthydra/sufia)

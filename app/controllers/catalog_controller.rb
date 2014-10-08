@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#osf -*- coding: utf-8 -*-
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
 require 'blacklight_advanced_search'
@@ -99,6 +99,16 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("desc_metadata__format", :stored_searchable), label: "File Format"
     config.add_show_field solr_name("desc_metadata__identifier", :stored_searchable), label: "Identifier"
 
+    # show fields from osf document
+    config.add_show_field solr_name("osf_exif_creator", :stored_searchable), label: "OSF Creator"
+    config.add_show_field solr_name("osf_exif_creator_address", :stored_searchable), label: "OSF Creator Address"
+    config.add_show_field solr_name("osf_exif_description", :stored_searchable), label: "OSF Exif Description"
+    config.add_show_field solr_name("osf_exif_image_description", :stored_searchable), label: "OSF Exif Image Description"
+    config.add_show_field solr_name("osf_exif_keywords", :stored_searchable), label: "OSF Exif Keyword"
+    config.add_show_field solr_name("osf_exif_subject", :stored_searchable), label: "OSF Subject"
+    config.add_show_field solr_name("osf_exif_usage_terms", :stored_searchable), label: "OSF Exif Usage Terms"
+
+
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
@@ -166,7 +176,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('description') do |field|
-      field.label = "Abstract or Summary"
+      field.label = "Description"
       field.solr_parameters = {
         :"spellcheck.dictionary" => "description"
       }
@@ -289,6 +299,62 @@ class CatalogController < ApplicationController
 
     config.add_search_field('rights') do |field|
       solr_name = solr_name("desc_metadata__rights", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("exif_creator") do |field|
+      solr_name = solr_name("osf_exif_creator", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("exif_creator_address") do |field|
+      solr_name = solr_name("osf_exif_creator_address", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("exif_description") do |field|
+      solr_name = solr_name("osf_exif_description", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("exif_image_description") do |field|
+      solr_name = solr_name("osf_exif_image_description", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("exif_keywords") do |field|
+      solr_name = solr_name("osf_exif_keyword", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("exif_subject") do |field|
+      solr_name = solr_name("osf_exif_subject", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("exif_usage_terms") do |field|
+      solr_name = solr_name("osf_exif_usage_terms", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

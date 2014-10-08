@@ -1,6 +1,12 @@
 # Returns an array containing the vhost 'CoSign service' value and URL
 Sufia.config do |config|
 
+  # overrides after_create_content from sufia sufia_events initializer
+  Sufia.config.after_create_content = lambda { |generic_file, user|
+    Sufia.queue.push(ContentDepositEventJob.new(generic_file.pid, user.user_key))
+    Sufia.queue.push(IngestExifMetadataJob.new(generic_file.pid))
+  }
+
   config.fits_to_desc_mapping= {
     file_title: :title,
     file_author: :creator
@@ -92,7 +98,7 @@ Sufia.config do |config|
   config.google_analytics_id = 'UA-425914-12'
 
   # Where to store tempfiles, leave blank for the system temp directory (e.g. /tmp)
-  # config.temp_file_base = '/home/developer1'
+  config.temp_file_base = '/tmp'
 
   # If you have ffmpeg installed and want to transcode audio and video uncomment this line
   # config.enable_ffmpeg = true
