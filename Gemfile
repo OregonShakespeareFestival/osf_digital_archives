@@ -52,6 +52,7 @@ gem 'production_credits', path: 'vendor/engines/production_credits'
 
 group :development, :test do
   gem "rspec-rails"
+  gem 'factory_girl_rails'
   gem "jettywrapper"
 end
 

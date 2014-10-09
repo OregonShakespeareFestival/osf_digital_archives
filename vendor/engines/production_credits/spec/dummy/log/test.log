@@ -1,0 +1,480 @@
+  [1m[36m (6.1ms)[0m  [1mCREATE TABLE "credits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "credit_type" varchar(255), "work_id" integer, "production_id" integer, "performance_id" integer, "role_id" integer, "person_id" integer) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX "index_credits_on_performance_id" ON "credits" ("performance_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (0.9ms)[0m  [1mCREATE  INDEX "index_credits_on_person_id" ON "credits" ("person_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX "index_credits_on_production_id" ON "credits" ("production_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (0.9ms)[0m  CREATE  INDEX "index_credits_on_role_id" ON "credits" ("role_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (0.9ms)[0m  [1mCREATE  INDEX "index_credits_on_work_id" ON "credits" ("work_id")[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "names" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "full_name" varchar(255), "person_id" integer, "venue_id" integer, "cannonized_at" datetime) 
+  [1m[36m (0.6ms)[0m  [1mCREATE  INDEX "index_names_on_person_id" ON "names" ("person_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_names_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_names_on_person_id' AND type='index'
+
+  [1m[36m (0.7ms)[0m  [1mCREATE  INDEX "index_names_on_venue_id" ON "names" ("venue_id")[0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "people" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_full_name" varchar(255), "disambiguation" varchar(255), "date_of_birth" date) 
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "performances" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "production_id" integer, "performed_at" datetime) [0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX "index_performances_on_production_id" ON "performances" ("production_id")
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "productions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "work_id" integer, "open_on" date, "close_on" date) [0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX "index_productions_on_work_id" ON "productions" ("work_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category" varchar(255), "name" varchar(255), "work_id" integer, "production_id" integer) [0m
+  [1m[35m (0.7ms)[0m  CREATE  INDEX "index_roles_on_production_id" ON "roles" ("production_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+[0m
+  [1m[35m (0.9ms)[0m  CREATE  INDEX "index_roles_on_work_id" ON "roles" ("work_id")
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "venues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_name" varchar(255), "opened_on" date) [0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "works" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "medium" varchar(255), "year" integer) 
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20141003001625')
+  [1m[36m (5.6ms)[0m  [1mCREATE TABLE "credits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "credit_type" varchar(255), "work_id" integer, "production_id" integer, "performance_id" integer, "role_id" integer, "person_id" integer) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (4.3ms)[0m  [1mCREATE  INDEX "index_credits_on_performance_id" ON "credits" ("performance_id")[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (4.4ms)[0m  [1mCREATE  INDEX "index_credits_on_person_id" ON "credits" ("person_id")[0m
+  [1m[35m (0.9ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (0.9ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (4.3ms)[0m  CREATE  INDEX "index_credits_on_production_id" ON "credits" ("production_id")
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+[0m
+  [1m[35m (0.9ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (0.9ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (4.1ms)[0m  CREATE  INDEX "index_credits_on_role_id" ON "credits" ("role_id")
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+[0m
+  [1m[35m (1.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (4.1ms)[0m  [1mCREATE  INDEX "index_credits_on_work_id" ON "credits" ("work_id")[0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "names" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "full_name" varchar(255), "person_id" integer, "venue_id" integer, "cannonized_at" datetime) 
+  [1m[36m (4.3ms)[0m  [1mCREATE  INDEX "index_names_on_person_id" ON "names" ("person_id")[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_names_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_names_on_person_id' AND type='index'
+
+  [1m[36m (4.8ms)[0m  [1mCREATE  INDEX "index_names_on_venue_id" ON "names" ("venue_id")[0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "people" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_full_name" varchar(255), "disambiguation" varchar(255), "date_of_birth" date) 
+  [1m[36m (4.6ms)[0m  [1mCREATE TABLE "performances" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "production_id" integer, "performed_at" datetime) [0m
+  [1m[35m (4.3ms)[0m  CREATE  INDEX "index_performances_on_production_id" ON "performances" ("production_id")
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "productions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "work_id" integer, "open_on" date, "close_on" date) [0m
+  [1m[35m (4.5ms)[0m  CREATE  INDEX "index_productions_on_work_id" ON "productions" ("work_id")
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category" varchar(255), "name" varchar(255), "work_id" integer, "production_id" integer) [0m
+  [1m[35m (4.2ms)[0m  CREATE  INDEX "index_roles_on_production_id" ON "roles" ("production_id")
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+[0m
+  [1m[35m (4.9ms)[0m  CREATE  INDEX "index_roles_on_work_id" ON "roles" ("work_id")
+  [1m[36m (4.3ms)[0m  [1mCREATE TABLE "venues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_name" varchar(255), "opened_on" date) [0m
+  [1m[35m (5.2ms)[0m  CREATE TABLE "works" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "medium" varchar(255), "year" integer) 
+  [1m[36m (4.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (4.6ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.7ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (4.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20141003001625')
+  [1m[36m (6.0ms)[0m  [1mCREATE TABLE "credits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "credit_type" varchar(255), "work_id" integer, "production_id" integer, "performance_id" integer, "role_id" integer, "person_id" integer) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (4.7ms)[0m  [1mCREATE  INDEX "index_credits_on_performance_id" ON "credits" ("performance_id")[0m
+  [1m[35m (1.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (4.0ms)[0m  [1mCREATE  INDEX "index_credits_on_person_id" ON "credits" ("person_id")[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (1.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (4.4ms)[0m  CREATE  INDEX "index_credits_on_production_id" ON "credits" ("production_id")
+  [1m[36m (0.9ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (4.0ms)[0m  CREATE  INDEX "index_credits_on_role_id" ON "credits" ("role_id")
+  [1m[36m (1.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+[0m
+  [1m[35m (1.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+
+  [1m[36m (1.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+[0m
+  [1m[35m (1.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (4.5ms)[0m  [1mCREATE  INDEX "index_credits_on_work_id" ON "credits" ("work_id")[0m
+  [1m[35m (4.3ms)[0m  CREATE TABLE "names" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "full_name" varchar(255), "person_id" integer, "venue_id" integer, "cannonized_at" datetime) 
+  [1m[36m (4.8ms)[0m  [1mCREATE  INDEX "index_names_on_person_id" ON "names" ("person_id")[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_names_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_names_on_person_id' AND type='index'
+
+  [1m[36m (4.6ms)[0m  [1mCREATE  INDEX "index_names_on_venue_id" ON "names" ("venue_id")[0m
+  [1m[35m (4.8ms)[0m  CREATE TABLE "people" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_full_name" varchar(255), "disambiguation" varchar(255), "date_of_birth" date) 
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "performances" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "production_id" integer, "performed_at" datetime) [0m
+  [1m[35m (4.4ms)[0m  CREATE  INDEX "index_performances_on_production_id" ON "performances" ("production_id")
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "productions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "work_id" integer, "open_on" date, "close_on" date) [0m
+  [1m[35m (4.6ms)[0m  CREATE  INDEX "index_productions_on_work_id" ON "productions" ("work_id")
+  [1m[36m (5.3ms)[0m  [1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category" varchar(255), "name" varchar(255), "work_id" integer, "production_id" integer) [0m
+  [1m[35m (4.6ms)[0m  CREATE  INDEX "index_roles_on_production_id" ON "roles" ("production_id")
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+[0m
+  [1m[35m (4.8ms)[0m  CREATE  INDEX "index_roles_on_work_id" ON "roles" ("work_id")
+  [1m[36m (4.1ms)[0m  [1mCREATE TABLE "venues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_name" varchar(255), "opened_on" date) [0m
+  [1m[35m (5.5ms)[0m  CREATE TABLE "works" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "medium" varchar(255), "year" integer) 
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (4.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.8ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (4.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20141003001625')
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "credits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "credit_type" varchar(255), "work_id" integer, "production_id" integer, "performance_id" integer, "role_id" integer, "person_id" integer) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (4.6ms)[0m  [1mCREATE  INDEX "index_credits_on_performance_id" ON "credits" ("performance_id")[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (3.8ms)[0m  [1mCREATE  INDEX "index_credits_on_person_id" ON "credits" ("person_id")[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (1.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (4.3ms)[0m  CREATE  INDEX "index_credits_on_production_id" ON "credits" ("production_id")
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+[0m
+  [1m[35m (0.9ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+[0m
+  [1m[35m (4.2ms)[0m  CREATE  INDEX "index_credits_on_role_id" ON "credits" ("role_id")
+  [1m[36m (0.9ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_role_id' AND type='index'
+[0m
+  [1m[35m (0.9ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_production_id' AND type='index'
+
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_person_id' AND type='index'
+[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_credits_on_performance_id' AND type='index'
+
+  [1m[36m (4.2ms)[0m  [1mCREATE  INDEX "index_credits_on_work_id" ON "credits" ("work_id")[0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "names" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "full_name" varchar(255), "person_id" integer, "venue_id" integer, "cannonized_at" datetime) 
+  [1m[36m (4.2ms)[0m  [1mCREATE  INDEX "index_names_on_person_id" ON "names" ("person_id")[0m
+  [1m[35m (0.8ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_names_on_person_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_names_on_person_id' AND type='index'
+
+  [1m[36m (4.6ms)[0m  [1mCREATE  INDEX "index_names_on_venue_id" ON "names" ("venue_id")[0m
+  [1m[35m (4.4ms)[0m  CREATE TABLE "people" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_full_name" varchar(255), "disambiguation" varchar(255), "date_of_birth" date) 
+  [1m[36m (5.3ms)[0m  [1mCREATE TABLE "performances" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "production_id" integer, "performed_at" datetime) [0m
+  [1m[35m (4.5ms)[0m  CREATE  INDEX "index_performances_on_production_id" ON "performances" ("production_id")
+  [1m[36m (5.2ms)[0m  [1mCREATE TABLE "productions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "work_id" integer, "open_on" date, "close_on" date) [0m
+  [1m[35m (4.2ms)[0m  CREATE  INDEX "index_productions_on_work_id" ON "productions" ("work_id")
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category" varchar(255), "name" varchar(255), "work_id" integer, "production_id" integer) [0m
+  [1m[35m (4.2ms)[0m  CREATE  INDEX "index_roles_on_production_id" ON "roles" ("production_id")
+  [1m[36m (0.8ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_roles_on_production_id' AND type='index'
+[0m
+  [1m[35m (5.5ms)[0m  CREATE  INDEX "index_roles_on_work_id" ON "roles" ("work_id")
+  [1m[36m (4.3ms)[0m  [1mCREATE TABLE "venues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "denormalized_name" varchar(255), "opened_on" date) [0m
+  [1m[35m (5.2ms)[0m  CREATE TABLE "works" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "medium" varchar(255), "year" integer) 
+  [1m[36m (5.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (4.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.8ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (4.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20141003001625')
