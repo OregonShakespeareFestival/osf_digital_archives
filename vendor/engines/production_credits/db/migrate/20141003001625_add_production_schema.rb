@@ -36,7 +36,7 @@ class AddProductionSchema < ActiveRecord::Migration
 
     create_table :production_credits_performances do |t|
       t.belongs_to :production, index: true
-      t.datetime :performed_at
+      t.datetime :performed_a t
     end
 
     create_table :production_credits_venues do |t|
