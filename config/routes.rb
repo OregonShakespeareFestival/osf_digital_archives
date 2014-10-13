@@ -3,6 +3,7 @@
 
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/production_credits/admin', as: 'rails_admin'
   blacklight_for :catalog
   devise_for :users
   Hydra::BatchEdit.add_routes(self)
