@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003001625) do
+ActiveRecord::Schema.define(version: 20141014185836) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -146,18 +146,12 @@ ActiveRecord::Schema.define(version: 20141003001625) do
 
   create_table "production_credits_credits", force: true do |t|
     t.string  "credit_type"
-    t.integer "work_id"
-    t.integer "production_id"
-    t.integer "performance_id"
     t.integer "role_id"
     t.integer "person_id"
   end
 
-  add_index "production_credits_credits", ["performance_id"], name: "index_production_credits_credits_on_performance_id"
   add_index "production_credits_credits", ["person_id"], name: "index_production_credits_credits_on_person_id"
-  add_index "production_credits_credits", ["production_id"], name: "index_production_credits_credits_on_production_id"
   add_index "production_credits_credits", ["role_id"], name: "index_production_credits_credits_on_role_id"
-  add_index "production_credits_credits", ["work_id"], name: "index_production_credits_credits_on_work_id"
 
   create_table "production_credits_names", force: true do |t|
     t.string   "full_name"
