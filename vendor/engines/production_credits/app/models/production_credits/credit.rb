@@ -5,7 +5,7 @@ module ProductionCredits
     belongs_to :person
 
     def credit_type_enum
-      ['Cast', 'Crew', 'Production', 'Direction', 'Writing', 'Department', 'Thanks']
+      ['Orignal', 'Understudy', 'Swing', 'Cover']
     end
 
     def name
