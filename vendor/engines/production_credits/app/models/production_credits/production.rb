@@ -1,8 +1,10 @@
 module ProductionCredits
   class Production < ActiveRecord::Base
     belongs_to :work
+    belongs_to :venue
     has_many :roles
     has_many :performances
+
 
 
     def name

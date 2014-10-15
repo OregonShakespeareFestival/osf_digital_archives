@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014185836) do
+ActiveRecord::Schema.define(version: 20141015204324) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 20141014185836) do
   create_table "production_credits_performances", force: true do |t|
     t.integer  "production_id"
     t.datetime "performed_at"
+    t.integer  "venue_id"
   end
 
   add_index "production_credits_performances", ["production_id"], name: "index_production_credits_performances_on_production_id"
@@ -180,6 +181,7 @@ ActiveRecord::Schema.define(version: 20141014185836) do
     t.integer "work_id"
     t.date    "open_on"
     t.date    "close_on"
+    t.integer "venue_id"
   end
 
   add_index "production_credits_productions", ["work_id"], name: "index_production_credits_productions_on_work_id"
