@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015204324) do
+ActiveRecord::Schema.define(version: 20141017190040) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -202,9 +202,9 @@ ActiveRecord::Schema.define(version: 20141015204324) do
   end
 
   create_table "production_credits_works", force: true do |t|
-    t.string  "title"
-    t.string  "medium"
-    t.integer "year"
+    t.string "title"
+    t.string "medium"
+    t.date   "year"
   end
 
   create_table "searches", force: true do |t|
