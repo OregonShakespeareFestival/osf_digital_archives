@@ -3,6 +3,9 @@ module ProductionCredits
     has_many :credits
     has_many :names
 
+    validates_presence_of :denormalized_full_name
+    validates_presence_of :date_of_birth
+
     def name
       denormalized_full_name
     end
