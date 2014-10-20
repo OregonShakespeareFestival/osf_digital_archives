@@ -51,6 +51,8 @@ gem "devise-guests", "~> 0.3"
 gem 'production_credits', path: 'vendor/engines/production_credits'
 gem 'rails_admin'
 
+gem 'slim-rails'
+
 group :development, :test do
   gem "rspec-rails"
   gem 'factory_girl_rails'
