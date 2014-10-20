@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  layout 'client'
+  layout 'osf-client/application'
 
   def index
     @currentPage = 'index'

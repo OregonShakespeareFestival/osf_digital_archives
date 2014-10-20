@@ -1,4 +1,4 @@
-//= require modules/data
+//= require osf-client/data
 
 describe "Data", ->
   data = null
