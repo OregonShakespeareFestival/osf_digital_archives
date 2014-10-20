@@ -10,7 +10,7 @@ namespace :production_credits do
       # params = {id: row['Location ID'], denormalized_name: row['Location']}
         sql_str = "insert into production_credits_venues (id, denormalized_name) values (#{row['Location ID']}, \"#{row['Location']}\")"
         puts sql_str
-        ProductionCredits::Venue.connection.insert(sql_str)
+        ProductionCredits::Venue.connection.execute(sql_str)
 
       end
 
