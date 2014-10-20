@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017190040) do
+ActiveRecord::Schema.define(version: 20141020172105) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20141017190040) do
     t.string  "credit_type"
     t.integer "role_id"
     t.integer "person_id"
+    t.integer "name_id"
   end
 
   add_index "production_credits_credits", ["person_id"], name: "index_production_credits_credits_on_person_id"

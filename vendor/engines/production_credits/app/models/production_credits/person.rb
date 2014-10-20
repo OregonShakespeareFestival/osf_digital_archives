@@ -5,6 +5,7 @@ module ProductionCredits
 
     validates_presence_of :denormalized_full_name
     validates_presence_of :date_of_birth
+    validates_presence_of :names
 
     def name
       denormalized_full_name
