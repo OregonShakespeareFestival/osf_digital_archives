@@ -9,6 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url  = "https://s3-us-west-2.amazonaws.com/osfsufiabox/hydra-sufia-0.3.box"
   config.vm.network   "forwarded_port", guest: 3000, host: 3000
   config.vm.network   "forwarded_port", guest: 8983, host: 8983
+  config.ssh.forward_agent = true
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
