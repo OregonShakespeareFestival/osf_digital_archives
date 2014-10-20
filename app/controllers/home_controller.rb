@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
-  layout 'archives'
+  layout 'client'
 
   def index
-
+    @currentPage = 'index'
   end
 
 end
