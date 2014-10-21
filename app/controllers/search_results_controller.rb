@@ -1,6 +1,13 @@
-class SearchResultsController < ApplicationController
+class SearchResultsController < CatalogController
   layout "osf-client/application"
 
-  def index
-  end
+  # def index
+  #   super.index
+  # end
+
 end
+
+# look in blacklight/lib/blackli9ght catalog
+
+
+
