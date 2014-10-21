@@ -10,6 +10,7 @@ $mobileBreakPoint: 415px;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 10;
+  padding: 0 10px;
 
   @media (max-width: $mobileBreakPoint)  {
     bottom: 0;
