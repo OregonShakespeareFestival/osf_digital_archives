@@ -3,9 +3,7 @@
 <head>
   <title>OSF Archives - Home</title>
   <%= stylesheet_link_tag    'osf-client/application', media: 'all', 'data-turbolinks-track' => true %>
-  <% if @currentPage %>
-    <%= stylesheet_link_tag    "osf-client/pages/#{@currentPage}", media: 'all', 'data-turbolinks-track' => true %>
-  <% end %>
+  <%= stylesheet_link_tag( "osf-client/pages/#{@current_page}", media: 'all', 'data-turbolinks-track' => true ) if @current_page %>
   <%= javascript_include_tag 'osf-client/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
