@@ -1,42 +1,15 @@
-$headerHeight: 70px;
-$footerHeight: 60px;
-$footerBreakPoint: 940px;
 $mobileBreakPoint: 415px;
 
-.header-region {
-  background-color: #32302f;
-  border-bottom: 2px solid #2c2a29;
+.main-content-region {
+  background-color: #000;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: $headerHeight;
-  overflow: visible;
-  z-index: 20;
-
-  @media (max-width: 736px) and (max-height: 414px) and (orientation: landscape) {
-    position: relative;
-    top: initial;
-    bottom: initial;
-    width: 100%;
-  }
-}
-
-.main-content-region {
-  background: image_url('home_bg.jpg') center 100% no-repeat;
-  background-size: cover;
-  position: absolute;
-  top: $headerHeight;
-  left: 0;
-  right: 0;
-  bottom: $footerHeight - 2;
+  bottom: 0;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 10;
-
-  @media only screen and (max-width: $footerBreakPoint) {
-    bottom: $footerHeight + 28;
-  }
 
   @media (max-width: $mobileBreakPoint)  {
     bottom: 0;
@@ -50,50 +23,5 @@ $mobileBreakPoint: 415px;
     width: 100%;
     overflow: auto;
     min-height: 240px;
-  }
-}
-
-.footer-region {
-  background-color: #2c2a29;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: $footerHeight;
-  overflow: hidden;
-  z-index: 20;
-
-  @media only screen and (max-width: $footerBreakPoint) {
-    height: $footerHeight + 30;
-  }
-
-  @media (max-width: $mobileBreakPoint)  {
-    display: none;
-  }
-
-  @media (max-width: 736px) and (max-height: 414px) and (orientation: landscape) {
-    position: relative;
-    top: initial;
-    bottom: initial;
-    width: 100%;
-  }
-}
-
-.pin-to-footer {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  padding: 0 30px;
-  text-align: center;
-
-  .btn-primary {
-    @media (max-width: $mobileBreakPoint) {
-      display: block;
-      margin-bottom: 20px;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
   }
 }
