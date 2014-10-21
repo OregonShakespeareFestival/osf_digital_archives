@@ -1,2 +1,4 @@
 h1 Welcome to the Archive
-p Coming soon...
+= form_tag search_results_path, method: :get
+  = text_field_tag :q, '', class: "search", placeholder: "Enter search terms"
+  = submit_tag "Search", name: nil

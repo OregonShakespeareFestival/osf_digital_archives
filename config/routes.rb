@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   # ResqueWeb::Engine.eager_load!
 
   mount ProductionCredits::Engine, at: "/production_credits"
-  get 'search' => 'search#index'
+  get 'search_results' => 'search_results#index'
+
+  # resources :search_results
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
