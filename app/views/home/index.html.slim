@@ -1,4 +1,1 @@
-h1 Welcome to the Archive
-= form_tag search_results_path, method: :get
-  = text_field_tag :q, '', class: "search", placeholder: "Enter search terms"
-  = submit_tag "Search", name: nil
+= render partial: "partials/search"
