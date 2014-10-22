@@ -101,7 +101,7 @@ Sufia.config do |config|
   config.temp_file_base = '/tmp'
 
   # If you have ffmpeg installed and want to transcode audio and video uncomment this line
-  # config.enable_ffmpeg = true
+  config.enable_ffmpeg = true
 
   # Specify the Fedora pid prefix:
   # config.id_namespace = "sufia"
