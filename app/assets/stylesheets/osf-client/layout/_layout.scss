@@ -1,0 +1,28 @@
+$mobileBreakPoint: 415px;
+
+.main-content-region {
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 10;
+  padding: 0 10px;
+
+  @media (max-width: $mobileBreakPoint)  {
+    bottom: 0;
+    // overflow: hidden !important;
+  }
+
+  @media (max-width: 736px) and (max-height: 414px) and (orientation: landscape) {
+    position: relative;
+    top: initial;
+    bottom: initial;
+    width: 100%;
+    overflow: auto;
+    min-height: 240px;
+  }
+}
