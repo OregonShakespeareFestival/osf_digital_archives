@@ -1,3 +1,18 @@
 .search-results
-  pre
-    =JSON.pretty_generate(JSON.parse(@response.to_json))
+  section.images
+    h1 Images
+    - @images.each do |image|
+      img src="archives/downloads/#{image['id'][6..-1]}?datastream_id=thumbnail"
+  section.video
+    h1 Videos
+    - @videos.each do |video|
+      video src="archives/downloads/#{video['id'][6..-1]}?datastream_id=mp4" controls="controls" width="320" height="240"
+  section.audio
+    h1 Audio
+    - @audio.each do |a|
+      audio controls="controls"
+        source src="archives/downloads/#{a['id'][6..-1]}"
+  section.documents
+    h1 Documents
+    - @articles.each do |article|
+      a target="_blank" href="archives/downloads/#{article['id'][6..-1]}" =article["desc_metadata__title_tesim"]
