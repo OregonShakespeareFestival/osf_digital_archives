@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( osf-client/pages/* )
+Rails.application.config.assets.precompile += %w( ember/* )

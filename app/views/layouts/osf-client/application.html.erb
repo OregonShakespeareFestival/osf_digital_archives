@@ -2,16 +2,13 @@
 <html>
 <head>
   <title>OSF Archives - Home</title>
-  <%= stylesheet_link_tag    'osf-client/application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag( "osf-client/pages/#{@current_page}", media: 'all', 'data-turbolinks-track' => true ) if @current_page %>
-  <%= javascript_include_tag 'osf-client/application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'osf-client/application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'ember/application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div class="main-content-region">
-  <%= yield %>
-</div>
+<%= yield %>
 
 </body>
 </html>
