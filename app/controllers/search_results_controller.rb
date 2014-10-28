@@ -2,26 +2,37 @@ class SearchResultsController < CatalogController
   layout "osf-client/application"
 
   def index
-    # Returns a Blacklight::SolrResponse
-    #  - See http://www.rubydoc.info/github/projectblacklight/blacklight/Blacklight/SolrResponse
-    (videoResponse, video_document_list) = get_search_results({q: params["q"], f: { desc_metadata__resource_type_sim: ["Video"]} })
-    (imageResponse, image_document_list) = get_search_results({q: params["q"], f: { desc_metadata__resource_type_sim: ["Image"]} })
-    (articleResponse, article_document_list) = get_search_results({q: params["q"], f: { desc_metadata__resource_type_sim: ["Article"]} })
-    (audioResponse, audio_document_list) = get_search_results({q: params["q"], f: { desc_metadata__resource_type_sim: ["Audio"]} })
+    @query = params[:q]
 
-    @videos = filter(videoResponse.docs)
-    @images = filter(imageResponse.docs)
-    @articles = filter(articleResponse.docs)
-    @audio = filter(audioResponse.docs)
+    resource_types = params[:t] ? params[:t].split(',') : ['images', 'videos', 'audios', 'documents']
+
+    response = resource_types.each_with_object({}) do |type, obj|
+      obj[type] = do_search(type.singularize.capitalize, params[type + '_page'])
+    end
+
+    render json: response.merge({ 'filters' => {}, 'query' => @query })
   end
 
   private
 
-  # TODO: Filter @response.docs by filter criteria.  Venue, date, document type, etc
-  def filter(response)
-    response
+  def do_search(resource_type, page)
+    # TODO: Pass page to Solr to retrieve correct page
+    (res, res_document_list) = get_search_results({q: @query, f: { desc_metadata__resource_type_sim: [resource_type]} })
+
+    res = filter(res)
+
+    return {
+      'current_page' => 0,
+      'items_per_page' => 10,
+      'total_items' => res.response['numFound'],
+      'data' => res.docs
+    }
   end
 
+  # TODO: Do filtering by venue, year, work
+  def filter(response, filters = {})
+    response
+  end
 end
 
 
