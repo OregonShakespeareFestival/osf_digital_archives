@@ -73,6 +73,18 @@ class GenericFile < ActiveFedora::Base
 
   end
 
+  def update_metadata
+    logger.info(" discoverable update $$$$$$$$$$$$$$$")
+    actor.update_metadata(params[:generic_file], params[:visibility])
+    if params[:visibility] == "discoverable"
+      logger.info(" discoverable update $$$$$$$$$$$$$$$")
+    end
+  end
+
+  def discoverable?
+    discover_groups.include?('public')
+  end
+
   private
 
   def sanitized_exif_value(v)
