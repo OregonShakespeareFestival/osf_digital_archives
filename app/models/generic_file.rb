@@ -17,6 +17,14 @@ class GenericFile < ActiveFedora::Base
     t.reject{|t| t =~ /^exif/}
   end
 
+  # TODO: refactor me to actually have good logic about whether a gf has a thumbnail
+  # def thumb_url
+  #   return 'audio.png' if audio? && !thumbnail.content
+  #   return 'default.png' if !thumbnail.content
+
+  #   image_tag sufia.download_path this.noid, datastream_id: 'thumbnail'
+  # end
+
   # expects a hash of exif metadata
   def map_exif_metadata
     # logger.info "MAPPING EXIF DATA FOR FILE #{id}"
