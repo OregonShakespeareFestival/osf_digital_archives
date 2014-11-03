@@ -1,9 +1,6 @@
 <% depositor = gf.depositor || batch.generic_files.first.depositor %>
-<% discoverable_perm = gf.permissions.map { |perm| perm[:access] if perm[:name] == "public" and perm[:access] == "discover"}.compact.first %>
-<% discoverable_perm = true if params[:controller] == 'batch' %>
-<% public_perm = gf.permissions.map { |perm| perm[:access] if perm[:name] == "public"}.compact.first %>
-<%# public_perm = true if params[:controller] == 'batch' %>
-<% registered_perm = gf.permissions.map { |perm| perm[:access] if perm[:name] == "registered"}.compact.first %>
+<% is_batch = params[:controller] == 'batch'%>
+
 
 
 <input type="hidden" name="generic_file[permissions][group][public]" value="1" />
@@ -32,16 +29,16 @@
   </h3>
   <div class="radio">
     <label>
-      <input type="radio" id="visibility_open" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC %>" <% if !public_perm.blank? and discoverable_perm.blank? %> checked="true"<% end %>/> <span class="label label-success">Open Access</span> Visible to the world.
+      <input type="radio" id="visibility_open" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC %>" <% if gf.public? || is_batch %> checked="true"<% end %>/> <span class="label label-success">Open Access</span> Visible to the world.
     </label>
     <label>
-      <input type="radio" id="visibility_restricted" name="visibility" value="discoverable" <% if !discoverable_perm.blank? %> checked="true"<% end %>/> <span class="label label-warning">Discoverable</span> Metadata only visible to the world.
+      <input type="radio" id="visibility_restricted" name="visibility" value="discoverable" <% if gf.discoverable? %> checked="true"<% end %>/> <span class="label label-warning">Discoverable</span> Only metadata visible.
     </label>
     <label>
-      <input type="radio" id="visibility_psu" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED %>" <% if !registered_perm.blank? %> checked="true"<% end %> /><span class="label label-info"><%=t('sufia.institution_name') %></span> Visible to all <%=t('sufia.institution_name') %> users.
+      <input type="radio" id="visibility_psu" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED %>" <% if gf.registered? && !gf.discoverable? && !gf.public? %> checked="true"<% end %> /><span class="label label-info"><%=t('sufia.institution_name') %></span> Visible only to <%=t('sufia.institution_name') %> users.
     </label>
     <label>
-      <input type="radio" id="visibility_restricted" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE %>"<% if (registered_perm.blank? and discoverable_perm.blank?) and public_perm.blank? %> checked="true"<% end %> /> <span class="label label-danger">Private</span> Visible to users/groups specified below, if any.
+      <input type="radio" id="visibility_restricted" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE %>"<% if gf.private? && !is_batch %> checked="true"<% end %> /> <span class="label label-danger">Private</span> Visible to users/groups specified below, if any.
     </label>
   </div>
 
