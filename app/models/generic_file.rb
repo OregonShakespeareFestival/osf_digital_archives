@@ -81,6 +81,10 @@ class GenericFile < ActiveFedora::Base
 
   end
 
+  def discoverable?
+    discover_groups.include?('public')
+  end
+
   private
 
   def sanitized_exif_value(v)
