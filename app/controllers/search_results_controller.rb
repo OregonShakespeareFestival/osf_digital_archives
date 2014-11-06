@@ -11,15 +11,12 @@ class SearchResultsController < CatalogController
       'resourceTypes' => [],
       'years' => []
     }
-    resource_types = params[:t] ? params[:t].split(',') : ['images', 'videos', 'audios', 'articles']
 
-    response = resource_types.each_with_object({}) do |type, obj|
-      page = params[type + '_page'] || 1
-      per_page = params[type + '_per_page'] || 10
-      obj[type] = do_search(type.singularize.capitalize, page, per_page)
-    end
+    page = params[:page] || 1
+    per_page = params[:per_page] || 10
+    response = do_search(params[:t].singularize.capitalize, page, per_page)
 
-    render json: response.merge({ 'filters' => @filters, 'query' => @query })
+    render json: {'type' => params[:t], 'data' => response, 'filters' => @filters, 'query' => @query }
   end
 
   private
