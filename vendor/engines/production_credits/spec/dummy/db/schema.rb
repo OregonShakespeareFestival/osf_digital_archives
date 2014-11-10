@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110231637) do
+ActiveRecord::Schema.define(version: 20141110233153) do
 
   create_table "credits", force: true do |t|
     t.string  "credit_type"
@@ -57,8 +57,11 @@ ActiveRecord::Schema.define(version: 20141110231637) do
     t.date    "open_on"
     t.date    "close_on"
     t.integer "work_id"
+    t.integer "venue_id"
+    t.string  "venue_alias"
   end
 
+  add_index "production_credits_productions", ["venue_id"], name: "index_production_credits_productions_on_venue_id"
   add_index "production_credits_productions", ["work_id"], name: "index_production_credits_productions_on_work_id"
 
   create_table "production_credits_venues", force: true do |t|
