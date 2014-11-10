@@ -85,6 +85,8 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.1)
+    shoulda-matchers (2.7.0)
+      activesupport (>= 3.0.0)
     sprockets (2.12.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -108,4 +110,5 @@ DEPENDENCIES
   factory_girl_rails
   production_credits!
   rspec-rails
+  shoulda-matchers
   sqlite3
