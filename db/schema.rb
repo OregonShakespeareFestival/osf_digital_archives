@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110181739) do
+ActiveRecord::Schema.define(version: 20141110231637) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -155,6 +155,12 @@ ActiveRecord::Schema.define(version: 20141110181739) do
   end
 
   add_index "production_credits_productions", ["work_id"], name: "index_production_credits_productions_on_work_id"
+
+  create_table "production_credits_venues", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "production_credits_works", force: true do |t|
     t.string   "title"
