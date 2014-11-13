@@ -2,8 +2,6 @@
 
 FactoryGirl.define do
   factory :production_credits_work, :class => 'Work' do
-    title "MyString"
-    medium "MyString"
-    year 1
+    title 'this is the work title'
   end
 end

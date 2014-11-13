@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 module ProductionCredits
-  describe Work, :type => :model do
-    pending "add some examples to (or delete) #{__FILE__}"
+  RSpec.describe Work, :type => :model do
+    it {should have_many :productions}
+
   end
 end
