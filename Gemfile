@@ -40,7 +40,7 @@ gem 'spring', group: :development
 
 # sufia 4.0.0 rc gem
 
-gem 'sufia', "~> 4.0.0"
+gem 'sufia', github: 'OregonShakespeareFestival/sufia'
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 
 gem "devise"

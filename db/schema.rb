@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020172105) do
+ActiveRecord::Schema.define(version: 20141110233153) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -144,69 +144,59 @@ ActiveRecord::Schema.define(version: 20141020172105) do
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
 
-  create_table "production_credits_credits", force: true do |t|
-    t.string  "credit_type"
-    t.integer "role_id"
-    t.integer "person_id"
-    t.integer "name_id"
-  end
-
-  add_index "production_credits_credits", ["person_id"], name: "index_production_credits_credits_on_person_id"
-  add_index "production_credits_credits", ["role_id"], name: "index_production_credits_credits_on_role_id"
-
-  create_table "production_credits_names", force: true do |t|
-    t.string   "full_name"
-    t.integer  "person_id"
-    t.integer  "venue_id"
-    t.datetime "cannonized_at"
-  end
-
-  add_index "production_credits_names", ["person_id"], name: "index_production_credits_names_on_person_id"
-  add_index "production_credits_names", ["venue_id"], name: "index_production_credits_names_on_venue_id"
-
-  create_table "production_credits_people", force: true do |t|
-    t.string "denormalized_full_name"
-    t.string "disambiguation"
-    t.date   "date_of_birth"
-  end
-
-  create_table "production_credits_performances", force: true do |t|
-    t.integer  "production_id"
-    t.datetime "performed_at"
-    t.integer  "venue_id"
-  end
-
-  add_index "production_credits_performances", ["production_id"], name: "index_production_credits_performances_on_production_id"
-
   create_table "production_credits_productions", force: true do |t|
-    t.integer "work_id"
+    t.string  "production_name"
+    t.string  "category"
     t.date    "open_on"
     t.date    "close_on"
+    t.integer "work_id"
     t.integer "venue_id"
+    t.string  "venue_alias"
   end
 
+  add_index "production_credits_productions", ["venue_id"], name: "index_production_credits_productions_on_venue_id"
   add_index "production_credits_productions", ["work_id"], name: "index_production_credits_productions_on_work_id"
 
-  create_table "production_credits_roles", force: true do |t|
-    t.string  "category"
-    t.string  "name"
-    t.integer "work_id"
-    t.integer "production_id"
-  end
-
-  add_index "production_credits_roles", ["production_id"], name: "index_production_credits_roles_on_production_id"
-  add_index "production_credits_roles", ["work_id"], name: "index_production_credits_roles_on_work_id"
-
   create_table "production_credits_venues", force: true do |t|
-    t.string "denormalized_name"
-    t.date   "opened_on"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "production_credits_works", force: true do |t|
-    t.string "title"
-    t.string "medium"
-    t.date   "year"
+    t.string   "title"
+    t.string   "author"
+    t.string   "medium"
+    t.date     "year_written"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  create_table "proxy_deposit_requests", force: true do |t|
+    t.string   "pid",                                   null: false
+    t.integer  "sending_user_id",                       null: false
+    t.integer  "receiving_user_id",                     null: false
+    t.datetime "fulfillment_date"
+    t.string   "status",            default: "pending", null: false
+    t.text     "sender_comment"
+    t.text     "receiver_comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "proxy_deposit_requests", ["receiving_user_id"], name: "index_proxy_deposit_requests_on_receiving_user_id"
+  add_index "proxy_deposit_requests", ["sending_user_id"], name: "index_proxy_deposit_requests_on_sending_user_id"
+
+  create_table "proxy_deposit_rights", force: true do |t|
+    t.integer  "grantor_id"
+    t.integer  "grantee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "proxy_deposit_rights", ["grantee_id"], name: "index_proxy_deposit_rights_on_grantee_id"
+  add_index "proxy_deposit_rights", ["grantor_id"], name: "index_proxy_deposit_rights_on_grantor_id"
 
   create_table "searches", force: true do |t|
     t.text     "query_params"
