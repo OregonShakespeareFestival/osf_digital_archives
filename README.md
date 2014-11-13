@@ -29,6 +29,13 @@ Clone the project into a workspace
     cd ~/workspace/
     git clone git@github.com:OregonShakespeareFestival/osf_digital_archives.git
 
+To use a local version of the sufia gem. If you don't need to make changes to sufia you don't need to do this.
+
+    /project_dir/$ git clone git@github.com:OregonShakespeareFestival/sufia.git
+    $ bundle config local.SUFIA /sufia
+
+    This will point to your local gem. Note that changes to the sufia directory are gitignored as it is maintained as a separate git repo. 
+
 Download and spin up the virtual machine
 
     vagrant up
