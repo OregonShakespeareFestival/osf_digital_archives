@@ -6,9 +6,12 @@ class GenericFile < ActiveFedora::Base
     :exif_usage_terms, datastream: :exifMetadata, multiple: false
   has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true
 
+  has_metadata 'production_data', type: Datastreams::ProductionData
+  has_attributes :production_name, datastream: :production_data, multiple: true
+
   def terms_for_display
     self.class.terms_for_display | [:exif_creator, :exif_creator_address, :exif_description,
-      :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
+      :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms, :production_name]
   end
 
   def terms_for_editing
