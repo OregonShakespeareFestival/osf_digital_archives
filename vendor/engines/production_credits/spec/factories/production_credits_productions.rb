@@ -1,9 +1,10 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :production_credits_production, :class => 'Production' do
+  factory :production_credits_production, :class => 'ProductionCredits::Production' do
+    production_name { Faker::Lorem.words(rand(3) + 1).join(' ') }
+    open_on { Date.today - 1 }
+    close_on { Date.today + 1 }
     work nil
-    open_on "2014-10-09"
-    close_on "2014-10-09"
   end
 end
