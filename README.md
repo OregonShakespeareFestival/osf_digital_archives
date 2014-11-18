@@ -61,6 +61,9 @@ Set up hydra-jetty
     rake jetty:config
 
 ## On-going Development
+    
+    Looking for a better way to reindex after changing search fields but this works in console
+    ActiveFedora::Base.all.each{|f| f.update_index}
 
 ### Spinning up the services
 

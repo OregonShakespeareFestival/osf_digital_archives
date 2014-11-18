@@ -45,8 +45,8 @@ gem 'sufia', github: 'OregonShakespeareFestival/sufia', branch: 'master'
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 
-gem "devise"
-gem "devise-guests", "~> 0.3"
+gem 'devise'
+gem 'devise-guests', '~> 0.3'
 
 # gem 'resque-web', require: 'resque_web'
 
@@ -56,12 +56,12 @@ gem 'rails_admin'
 gem 'slim-rails'
 
 group :development, :test do
-  gem "rspec-rails"
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem "jettywrapper"
+  gem 'faker'
+  gem 'jettywrapper'
   gem 'jasmine-rails'
   gem 'pry-byebug'
 end
 
-gem "exiftool"
-
+gem 'exiftool'

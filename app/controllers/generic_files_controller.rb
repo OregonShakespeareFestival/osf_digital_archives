@@ -2,9 +2,11 @@ class GenericFilesController < ApplicationController
   include Sufia::Controller
   include Sufia::FilesControllerBehavior
 
+  before_filter :add_accessible_attributes, except: [:index, :audit]
+
   #overides method in /sufia-4.0.0/app/controllers/concerns/sufia/files_controller_behavior.rb
   def update_metadata
-    
+
     if params[:visibility] == "discoverable"
       @generic_file.discover_groups = ['public']
       @generic_file.read_groups = ['registered']
@@ -19,6 +21,12 @@ class GenericFilesController < ApplicationController
     actor.update_metadata(params[:generic_file], params[:visibility])
 
   end
+
+  protected
+    #Refactor: isn't there a way to do this on the model?
+    def add_accessible_attributes
+      @generic_file.class._accessible_attributes[:default] << :production_name
+    end
 
 end
 

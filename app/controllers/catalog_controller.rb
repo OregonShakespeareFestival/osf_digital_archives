@@ -50,11 +50,12 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("desc_metadata__resource_type", :facetable), label: "Resource Type", limit: 5
     config.add_facet_field solr_name("desc_metadata__creator", :facetable), label: "Creator", limit: 5
     config.add_facet_field solr_name("desc_metadata__tag", :facetable), label: "Keyword", limit: 5
-    config.add_facet_field solr_name("desc_metadata__subject", :facetable), label: "Subject", limit: 5
-    config.add_facet_field solr_name("desc_metadata__language", :facetable), label: "Language", limit: 5
-    config.add_facet_field solr_name("desc_metadata__based_near", :facetable), label: "Location", limit: 5
-    config.add_facet_field solr_name("desc_metadata__publisher", :facetable), label: "Publisher", limit: 5
+    # config.add_facet_field solr_name("desc_metadata__subject", :facetable), label: "Subject", limit: 5
+    # config.add_facet_field solr_name("desc_metadata__language", :facetable), label: "Language", limit: 5
+    # config.add_facet_field solr_name("desc_metadata__based_near", :facetable), label: "Location", limit: 5
+    # config.add_facet_field solr_name("desc_metadata__publisher", :facetable), label: "Publisher", limit: 5
     config.add_facet_field solr_name("file_format", :facetable), label: "File Format", limit: 5
+    config.add_facet_field solr_name("production_name", :facetable), label: "Production", limit: 5
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -79,6 +80,7 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("desc_metadata__resource_type", :stored_searchable), label: "Resource Type"
     config.add_index_field solr_name("desc_metadata__format", :stored_searchable), label: "File Format"
     config.add_index_field solr_name("desc_metadata__identifier", :stored_searchable), label: "Identifier"
+    config.add_index_field solr_name("production_name", :stored_searchable), label: "Production"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -108,6 +110,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("osf_exif_subject", :stored_searchable), label: "OSF Subject"
     config.add_show_field solr_name("osf_exif_usage_terms", :stored_searchable), label: "OSF Exif Usage Terms"
 
+    config.add_show_field solr_name("production_name", :stored_searchable), label: "Production"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -355,6 +358,14 @@ class CatalogController < ApplicationController
 
     config.add_search_field("exif_usage_terms") do |field|
       solr_name = solr_name("osf_exif_usage_terms", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field("production_name") do |field|
+      solr_name = solr_name("production_name", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name
