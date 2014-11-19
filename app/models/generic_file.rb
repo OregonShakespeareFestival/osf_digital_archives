@@ -90,15 +90,7 @@ class GenericFile < ActiveFedora::Base
 
   private
 
-  def sanitized_exif_value(v)
-    return v if v.kind_of? String
-
-    if v.kind_of? Array
-      v.join ", "
-    else
-      v.to_s
-    end
+  def sanitized_exif_value(value)
+    value.kind_of?(Array) ? value.join(', ') : value.to_s
   end
-
-
 end
