@@ -17,4 +17,10 @@ class Ability
     #   can [:create], ActiveFedora::Base
     # end
   end
+
+  def download_permissions
+    can :download, ActiveFedora::Datastream do |ds|
+      ds.dsid == 'thumbnail' || can?(:read, ds.pid)
+    end
+  end
 end
