@@ -86,18 +86,18 @@ You can reach the application at [http://localhost:3000/](http://localhost:3000/
 You can reach a resque dashboard at [http://localhost:3000/resque_web](http://localhost:3000/resque_web)
 
 
-###### STAGING
+#### STAGING
 
-ssh -i hydra.pem ec2-user@hydra.osfashland.org
-> git pull origin xxxxx
-** bundle, migrate, ect
-> start_rails
-> start_resque
+    ssh -i hydra.pem ec2-user@hydra.osfashland.org
+    git pull origin xxxx
+> bundle, migrate, ect
+    start_rails -e production
+> To run in development mode leave off the -e flag or specify development, assets are precompiled as part of the start_rails function.
+    start_resque
 
-### if you want to see outputs
-# screen -x rails
-# screen -x resque
-
+##### To view the resque or rails stdout
+    screen -x rails
+    screen -x resque
 
 ## Resources
 
