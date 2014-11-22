@@ -1,4 +1,4 @@
-class Datastreams::ExifMetadata < ActiveFedora::OmDatastream
+class Datastreams::ExifMetadataDatastream < ActiveFedora::OmDatastream
 
 	set_terminology do |t|
 		t.root(path: "fields")

@@ -1,4 +1,4 @@
-class Datastreams::ProductionData < ActiveFedora::OmDatastream
+class Datastreams::ProductionDataDatastream < ActiveFedora::OmDatastream
   set_terminology do |t|
     t.root(path: "fields")
     t.production_name index_as: [:stored_searchable, :facetable]

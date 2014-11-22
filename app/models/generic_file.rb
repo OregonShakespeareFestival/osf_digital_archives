@@ -1,12 +1,12 @@
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
 
-  has_metadata "exifMetadata", type: Datastreams::ExifMetadata
+  has_metadata "exifMetadata", type: Datastreams::ExifMetadataDatastream
   has_attributes :exif_creator, :exif_creator_address, :exif_description, :exif_image_description,
     :exif_usage_terms, datastream: :exifMetadata, multiple: false
   has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true
 
-  has_metadata 'production_data', type: Datastreams::ProductionData
+  has_metadata 'production_data', type: Datastreams::ProductionDataDatastream
   has_attributes :production_name, datastream: :production_data, multiple: true
 
   def terms_for_display
