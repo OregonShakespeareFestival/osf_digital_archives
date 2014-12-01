@@ -57,11 +57,13 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("file_format", :facetable), label: "File Format", limit: 5
     config.add_facet_field solr_name("production_name", :facetable), label: "Production", limit: 5
 
+    config.add_facet_field solr_name("asset_create_year", :facetable, type: :integer), label: "Year Created", limit: 5
+
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
-
+    # config.add_facet_fq_to_solr(solr_parameters, user_params)
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field solr_name("desc_metadata__title", :stored_searchable), label: "Title", itemprop: 'name'
@@ -70,11 +72,11 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("desc_metadata__subject", :stored_searchable), label: "Subject", itemprop: 'about'
     config.add_index_field solr_name("desc_metadata__creator", :stored_searchable), label: "Creator", itemprop: 'creator'
     config.add_index_field solr_name("desc_metadata__contributor", :stored_searchable), label: "Contributor", itemprop: 'contributor'
-    config.add_index_field solr_name("desc_metadata__publisher", :stored_searchable), label: "Publisher", itemprop: 'publisher'
-    config.add_index_field solr_name("desc_metadata__based_near", :stored_searchable), label: "Location", itemprop: 'contentLocation'
-    config.add_index_field solr_name("desc_metadata__language", :stored_searchable), label: "Language", itemprop: 'inLanguage'
-    config.add_index_field solr_name("desc_metadata__date_uploaded", :stored_searchable), label: "Date Uploaded", itemprop: 'datePublished'
-    config.add_index_field solr_name("desc_metadata__date_modified", :stored_searchable), label: "Date Modified", itemprop: 'dateModified'
+    # config.add_index_field solr_name("desc_metadata__publisher", :stored_searchable), label: "Publisher", itemprop: 'publisher'
+    # config.add_index_field solr_name("desc_metadata__based_near", :stored_searchable), label: "Location", itemprop: 'contentLocation'
+    # config.add_index_field solr_name("desc_metadata__language", :stored_searchable), label: "Language", itemprop: 'inLanguage'
+    # config.add_index_field solr_name("desc_metadata__date_uploaded", :stored_searchable), label: "Date Uploaded", itemprop: 'datePublished'
+    # config.add_index_field solr_name("desc_metadata__date_modified", :stored_searchable), label: "Date Modified", itemprop: 'dateModified'
     config.add_index_field solr_name("desc_metadata__date_created", :stored_searchable), label: "Date Created", itemprop: 'dateCreated'
     config.add_index_field solr_name("desc_metadata__rights", :stored_searchable), label: "Rights"
     config.add_index_field solr_name("desc_metadata__resource_type", :stored_searchable), label: "Resource Type"
@@ -378,10 +380,12 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     # label is key, solr field is value
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance \u25BC"
+    config.add_sort_field "#{modified_field} asc", label: "date created \u25B2"
     config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
     config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
     config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"
-    config.add_sort_field "#{modified_field} asc", label: "date modified \u25B2"
+    config.add_sort_field "#{solr_name('asset_create_year', :stored_sortable)} asc", label: "year created \u25B2"
+    config.add_sort_field "#{solr_name('asset_create_year', :stored_sortable)} desc", label: "year created \u25BC"
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.

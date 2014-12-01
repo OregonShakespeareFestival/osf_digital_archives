@@ -9,6 +9,9 @@ class GenericFile < ActiveFedora::Base
   has_metadata 'production_data', type: Datastreams::ProductionDataDatastream
   has_attributes :production_name, datastream: :production_data, multiple: true
 
+  has_metadata 'date_created_stream', type: Datastreams::DateCreatedDatastream
+  has_attributes :asset_create_year, datastream: :date_created_stream, multiple: false
+
   def terms_for_display
     self.class.terms_for_display | [:exif_creator, :exif_creator_address, :exif_description,
       :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms, :production_name]

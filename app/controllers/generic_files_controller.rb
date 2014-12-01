@@ -18,6 +18,7 @@ class GenericFilesController < ApplicationController
       params.delete :visibility
     end
 
+    @generic_file.asset_create_year = Date.parse(params[:generic_file][:date_created]).year.to_s
     actor.update_metadata(params[:generic_file], params[:visibility])
 
   end

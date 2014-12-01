@@ -5,6 +5,16 @@ class SolrDocument
   # Adds Sufia behaviors to the SolrDocument.
   include Sufia::SolrDocumentBehavior
 
+  def asset_create_date
+    field = self[Solrizer.solr_name("asset_create_date", :stored_sortable, type: :date)]
+    # binding.pry
+    return unless field.present?
+    begin
+      Date.parse(field).to_formatted_s(:standard)
+    rescue
+      ActiveFedora::Base.logger.info "Unable to parse date: #{field.first.inspect} for #{self['id']}"
+    end
+  end
 
   # self.unique_key = 'id'
   
