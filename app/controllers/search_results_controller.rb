@@ -44,6 +44,7 @@ class SearchResultsController < CatalogController
         'keywords'      => d[:desc_metadata__tag],
         'mp4_url'       => sufia.download_path(file, datastream_id: 'mp4'),
         'production'    => nil,
+        'visibility'    => file.visibility,
         'title'         => d[:desc_metadata__title_tesim].first,
         'thumbnail_url' => sufia.download_path(file, datastream_id: 'thumbnail'),
         'type'          => d[:desc_metadata__resource_type_tesim].first,
