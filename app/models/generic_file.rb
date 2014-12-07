@@ -7,14 +7,14 @@ class GenericFile < ActiveFedora::Base
   has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true
 
   has_metadata 'production_data', type: Datastreams::ProductionDataDatastream
-  has_attributes :production_name, datastream: :production_data, multiple: true
+  has_attributes :production_name, :venue_name, datastream: :production_data, multiple: true
 
   has_metadata 'date_created_stream', type: Datastreams::DateCreatedDatastream
   has_attributes :asset_create_year, datastream: :date_created_stream, multiple: false
 
   def terms_for_display
-    self.class.terms_for_display | [:exif_creator, :exif_creator_address, :exif_description,
-      :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms, :production_name]
+    self.class.terms_for_display | [:production_name, :venue_name, :exif_creator, :exif_creator_address, :exif_description,
+      :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
   end
 
   def terms_for_editing
@@ -85,6 +85,22 @@ class GenericFile < ActiveFedora::Base
 
   	return metadata.to_hash
 
+  end
+
+  def production
+    return nil unless production_name
+    ProductionCredits::Production.find_by(production_name: production_name)
+  end
+
+  def venue
+    unless venue_name.empty? then
+      venue = ProductionCredits::Venue.find_by_name_or_alias(venue_name.first)
+    end
+
+    if !venue && production
+      venue = production.venue
+    end
+    venue
   end
 
   def discoverable?

@@ -39,11 +39,12 @@ class SearchResultsController < CatalogController
       # TODO: Update urls to use GenericFile properties.
       {
         'date_created'  => file.date_created.first,
-        'description'   => d[:desc_metadata__description],
+        'description'   => file.description.first,
         'id'            => d[:id][6..-1],
-        'keywords'      => d[:desc_metadata__tag],
+        'keywords'      => file.tag,
         'mp4_url'       => sufia.download_path(file, datastream_id: 'mp4'),
-        'production'    => nil,
+        'production'    => file.production_name.first,
+        'venue'         => file.venue_name.first,
         'visibility'    => file.visibility,
         'title'         => d[:desc_metadata__title_tesim].first,
         'thumbnail_url' => sufia.download_path(file, datastream_id: 'thumbnail'),
@@ -72,6 +73,8 @@ class SearchResultsController < CatalogController
         when 'year'
           # &filters%5Byear%5D=2014
           {asset_create_year_isi: value}
+        when 'venue'
+          {venue_name_sim: value}
         else {}
       end
     end
