@@ -1,5 +1,6 @@
 class SearchResultsController < CatalogController
   layout "osf-client/application"
+  skip_before_filter :authenticate_user!
 
   def index
     headers['Access-Control-Allow-Origin'] = '*'
