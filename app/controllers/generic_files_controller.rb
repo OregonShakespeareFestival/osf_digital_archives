@@ -18,7 +18,11 @@ class GenericFilesController < ApplicationController
       params.delete :visibility
     end
 
-    @generic_file.asset_create_year = Date.parse(params[:generic_file][:date_created]).year.to_s
+    if params[:generic_file][:date_created] and !params[:generic_file][:date_created].scan(/(\d{1,2}[-\/]\d{1,2}[-\/]\d{4})|(\d{4}[-\/]\d{1,2}[-\/]\d{1,2})/).empty?
+      date_created = Date.parse(params[:generic_file][:date_created])
+      @generic_file.asset_create_year = date_created.year.to_s
+    end
+
     actor.update_metadata(params[:generic_file], params[:visibility])
 
   end
