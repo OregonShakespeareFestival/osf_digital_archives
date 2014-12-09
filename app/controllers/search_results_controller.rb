@@ -20,12 +20,22 @@ class SearchResultsController < CatalogController
     per_page = params[:per_page] || 10
     resource_type = params[:t].singularize.capitalize
 
-    response = do_search(@query, @filters, resource_type, page, per_page)
+    unless @query == "featured" && @filters.empty?
+      response = do_search(@query, @filters, resource_type, page, per_page)
+    else
+      response = build_response(featured(resource_type).collect(&:generic_file_solr_document))
+    end
 
     render json: {'type' => params[:t], 'data' => response, 'filters' => @filters, 'query' => @query }
   end
 
   private
+
+  def featured(resource_type)
+    featured_list = FeaturedWorkList.new
+    document_list = featured_list.featured_works
+    document_list.to_a.delete_if{|f| f.generic_file_solr_document.resource_type[0] != resource_type}
+  end
 
   def do_search(query, filters, resource_type, page, per_page)
     facets = {desc_metadata__resource_type_sim: resource_type}
@@ -33,10 +43,18 @@ class SearchResultsController < CatalogController
     q_params = {q: query, f: facets, page: page, per_page: per_page }
 
     (res, res_document_list) = get_search_results(q_params)
-    data = res.docs.map { |d|
+    response = build_response(res.docs)
+    response.merge({ 
+      current_page: page,
+      items_per_page: per_page,
+      total_items: res.response['numFound']
+    })
+  end
+
+  def build_response(document_list)
+    data = document_list.map { |d|
       file = GenericFile.find(d[:id])
 
-      # TODO: Add production when it is implemented.
       # TODO: Update urls to use GenericFile properties.
       {
         'date_created'  => file.date_created.first,
@@ -55,12 +73,7 @@ class SearchResultsController < CatalogController
       }
     }
 
-    return {
-      'current_page'   => page,
-      'data'           => data,
-      'items_per_page' => per_page,
-      'total_items'    => res.response['numFound']
-    }
+    return {data: data}
   end
 
   def filters_to_query_values(filters)
