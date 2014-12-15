@@ -76,6 +76,35 @@ class SearchResultsController < CatalogController
     return {data: data}
   end
 
+  # overidden from gems/blacklight-5.5.4/lib/blacklight/request_builders.rb
+  def add_facet_fq_to_solr(solr_parameters, user_params)   
+    # convert a String value into an Array
+    if solr_parameters[:fq].is_a? String
+      solr_parameters[:fq] = [solr_parameters[:fq]]
+    end
+
+    # :fq, map from :f. 
+    if ( user_params[:f])
+      f_request_params = user_params[:f] 
+      
+      f_request_params.each_pair do |facet_field, value_list|
+        next if value_list.blank? # skip empty strings
+
+        unless value_list.is_a?(Array)
+          solr_parameters.append_filter_query facet_value_to_fq_string(facet_field, value_list)
+        else 
+          or_query = value_list.map do |value|
+            next if value.blank? # skip empty strings
+            "#{facet_field}:#{value}"
+          end
+          
+          solr_parameters.append_filter_query(or_query.join(" OR "))
+          # binding.pry
+        end              
+      end      
+    end
+  end
+
   def filters_to_query_values(filters)
     query_values = filters.map do |filter, value|
       next if value.blank?
@@ -87,11 +116,13 @@ class SearchResultsController < CatalogController
         when 'year'
           # &filters%5Byear%5D=2014
           {asset_create_year_isi: value}
-        when 'venue'
+        when 'venues'
           {venue_name_sim: value}
+          # {{venue_name_sim: "Thomas"}, {venue_name_sim: "Elizabethan"}}
         else {}
       end
     end
+    # binding.pry
     query_values.reduce({}, :update) #reduces array of hashes to single hash
     
   end
