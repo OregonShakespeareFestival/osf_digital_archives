@@ -93,13 +93,13 @@ class SearchResultsController < CatalogController
         unless value_list.is_a?(Array)
           solr_parameters.append_filter_query facet_value_to_fq_string(facet_field, value_list)
         else 
-          or_query = value_list.map do |value|
+          query_join = (facet_field[0,1] == "!" ? " AND " : " OR ")
+          query = value_list.map do |value|
             next if value.blank? # skip empty strings
-            "#{facet_field}:#{value}"
+            "#{facet_field}:\"#{value}\""
           end
           
-          solr_parameters.append_filter_query(or_query.join(" OR "))
-          # binding.pry
+          solr_parameters.append_filter_query(query.join(query_join))
         end              
       end      
     end
@@ -110,21 +110,22 @@ class SearchResultsController < CatalogController
       next if value.blank?
       case filter
         when 'years'
-
           # {asset_create_year_isi: [(1000...3000)]}
           {asset_create_year_isi: [value.map(&:to_i).inject{|s,e| s...e }]} # maps array with start and end to a range
         when 'year'
           # &filters%5Byear%5D=2014
           {asset_create_year_isi: value}
         when 'venues'
-          {venue_name_sim: value}
-          # {{venue_name_sim: "Thomas"}, {venue_name_sim: "Elizabethan"}}
+          unless value == ["Other"]
+            {venue_name_sim: value}
+          else
+            {:'!venue_name_sim' => ["Elizabethan", "Thomas", "Angus Bowmer", "Green Show"]}
+          end
         else {}
       end
     end
-    # binding.pry
-    query_values.reduce({}, :update) #reduces array of hashes to single hash
-    
+
+    query_values.reduce({}, :update) #reduces array of hashes to single hash    
   end
 end
 
