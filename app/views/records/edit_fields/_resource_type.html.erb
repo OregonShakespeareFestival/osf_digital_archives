@@ -1,0 +1,4 @@
+<%# convert class variable to a local variable if the local hasn't been set %>
+<div>
+  <%= f.select "resource_type", options_for_select(Sufia.config.resource_types.keys, record.resource_type), {}, { multiple: false } %>
+</div>
