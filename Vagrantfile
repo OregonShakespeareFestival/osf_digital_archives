@@ -10,12 +10,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network   "forwarded_port", guest: 3000, host: 3000
   config.vm.network   "forwarded_port", guest: 8983, host: 8983
   config.ssh.forward_agent = true
+  config.vm.network "private_network", ip: "192.168.33.10"
+
+  config.vm.synced_folder ".", "/vagrant", type: 'nfs'
+  # config.vm.synced_folder "sufia", "/sufia", type: 'nfs'
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
-    vb.customize ["modifyvm", :id, "--cpus", "2"]
+    vb.customize ["modifyvm", :id, "--cpus", "1"]
     # following configs resolve a bug causing bundle gem to hang 5 seconds per get
-    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
-    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+    # vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+    # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
   end
 end
+

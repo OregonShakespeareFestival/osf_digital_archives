@@ -1,6 +1,12 @@
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
 
+  # Overrides Sufia defined attributes so they aren't multiple
+  # sufia-models/app/models/concerns/sufia/generic_file/metadata.rb
+  has_attributes :title, :description, :rights, :date_created, :subject, :resource_type, datastream: :descMetadata, multiple: false
+
+  # New attributes
+
   has_metadata "exifMetadata", type: Datastreams::ExifMetadataDatastream
   has_attributes :exif_creator, :exif_creator_address, :exif_description, :exif_image_description,
     :exif_usage_terms, datastream: :exifMetadata, multiple: false
