@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # ResqueWeb::Engine.eager_load!
 
   mount ProductionCredits::Engine, at: "/production_credits"
-  get 'search_results' => 'search_results#index'
+  post 'search_results' => 'search_results#index'
 
   Hydra::BatchEdit.add_routes(self)
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
