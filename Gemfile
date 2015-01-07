@@ -40,7 +40,7 @@ gem 'spring', group: :development
 
 # sufia 4.0.0 rc gem
 
-gem 'sufia', github: 'OregonShakespeareFestival/sufia', branch: 'master'
+gem 'sufia', github: 'OregonShakespeareFestival/sufia', branch: 'fedora4'
 # point at local repo $ bundle config local.SUFIA ../path/to/sufia
 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
