@@ -103,6 +103,21 @@ You can reach a resque dashboard at [http://localhost:3000/resque_web](http://lo
     screen -x rails
     screen -x resque
 
+##Docker environment vars mapped in spin up
+
+HYDRASTAGINGDB_NAME=/osfsufia/hydrastagingdb
+HYDRASTAGINGDB_PORT=tcp://172.17.0.65:3306
+HYDRASTAGINGDB_PORT_3306_TCP=tcp://172.17.0.65:3306
+HYDRASTAGINGDB_PORT_3306_TCP_ADDR=172.17.0.65
+HYDRASTAGINGDB_PORT_3306_TCP_PORT=3306
+HYDRASTAGINGDB_PORT_3306_TCP_PROTO=tcp
+HYDRASTAGINGJETTY_NAME=/osfsufia/hydrastagingjetty
+HYDRASTAGINGJETTY_PORT=tcp://172.17.0.66:8983
+HYDRASTAGINGJETTY_PORT_8983_TCP=tcp://172.17.0.66:8983
+HYDRASTAGINGJETTY_PORT_8983_TCP_ADDR=172.17.0.66
+HYDRASTAGINGJETTY_PORT_8983_TCP_PORT=8983
+HYDRASTAGINGJETTY_PORT_8983_TCP_PROTO=tcp
+
 ## Resources
 
 - [sufia 4.0.0 rc1 Documentation](https://github.com/projecthydra/sufia)
