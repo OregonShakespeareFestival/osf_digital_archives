@@ -1,7 +1,7 @@
 development:
   user: fedoraAdmin
   password: fedoraAdmin
-  url: <%= "http://#{ENV['HYDRASTAGINGJETTY_PORT_8983_TCP_ADDR']:8983/fedora3" %>
+  url: <%= "http://#{ENV['HYDRASTAGINGJETTY_PORT_8983_TCP_ADDR']}:8983/fedora3" %>
 test: &TEST  
   user: fedoraAdmin
   password: fedoraAdmin

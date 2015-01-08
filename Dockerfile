@@ -29,6 +29,12 @@ RUN yum install unzip -y
 
 RUN yum install git gcc make rubygem-nokogiri libxslt libxslt-devel libxml2 libxml2-devel sqlite-devel openssl-devel ruby-devel rubygem-devel rubygem-bundler -y
 
+RUN yum install redis -y
+
+RUN yum install fpack -y
+
+RUN yum install libreoffice-headless -y
+
 RUN gem install nokogiri -- --use-system-libraries
 
 ADD config/container/nginx-sites.conf /etc/nginx/conf.d/default.conf
@@ -45,13 +51,13 @@ WORKDIR /rails
 RUN /bin/bash -l -c "bundle install"
 RUN rake db:create
 RUN rake db:migrate
-RUN rake jetty:clean
+RUN rake db:seed
 
 #RUN jetty:config
 
 # Publish port 80
 EXPOSE 80
-EXPOSE 8983
+EXPOSE 6379
 
 # Startup commands
-ENTRYPOINT /usr/bin/start-server
+ENTRYPOINT /usr/bin/start-server &
