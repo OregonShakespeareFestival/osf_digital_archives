@@ -7,4 +7,4 @@ test: &TEST
 cucumber:
   <<: *TEST
 production:
-  url: http://fcommons-dev.osfashland.org:8080/solr/development
+  url: <%= "http://#{ENV['HYDRASTAGINGJETTY_PORT_8983_TCP_ADDR']}:8983/solr" %>

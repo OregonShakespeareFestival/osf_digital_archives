@@ -9,6 +9,6 @@ test: &TEST
 production:
   user: fedoraAdmin
   password: root
-  url: http://fcommons-dev.osfashland.org:8080/fedora
+  url: <%= "http://#{ENV['HYDRAPRODUCTIONJETTY_PORT_8983_TCP_ADDR']}:8983/fedora3" %>
 cucumber:
   <<: *TEST

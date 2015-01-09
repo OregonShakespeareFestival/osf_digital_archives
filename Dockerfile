@@ -49,6 +49,11 @@ WORKDIR /rails
 
 # bundle install
 RUN /bin/bash -l -c "bundle install"
+RUN bundle exec rake assets:precompile --trace
+
+# copy the rest of the app
+ADD / /rails/app/
+
 RUN rake db:create
 RUN rake db:migrate
 RUN rake db:seed
@@ -60,4 +65,4 @@ EXPOSE 80
 EXPOSE 6379
 
 # Startup commands
-ENTRYPOINT /usr/bin/start-server &
+ENTRYPOINT /usr/bin/start-server 
