@@ -1,5 +1,5 @@
       <div <% if index == 0%> id="additional_<%= key.to_s %>_clone" <% end %>>
-        <%= f.select "production_name", options_for_select(production_names, v), include_blank: true %>
+        <%= f.select "production_name", options_for_select(production_names_for_select, v), include_blank: true %>
         <%= render partial: "records/edit_fields/suffix", locals: { key: key, index: index } %>
       </div>
       <div id="additional_<%= key %>_elements"></div>
