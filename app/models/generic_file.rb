@@ -3,7 +3,7 @@ class GenericFile < ActiveFedora::Base
 
   # Overrides Sufia defined attributes so they aren't multiple
   # sufia-models/app/models/concerns/sufia/generic_file/metadata.rb
-  has_attributes :title, :description, :rights, :date_created, :subject, :resource_type, datastream: :descMetadata, multiple: false
+  has_attributes :title, :description, :rights, :date_created, :resource_type, datastream: :descMetadata, multiple: false
 
   # New attributes
 
@@ -19,8 +19,9 @@ class GenericFile < ActiveFedora::Base
   has_attributes :asset_create_year, datastream: :date_created_stream, multiple: false
 
   def terms_for_display
-    self.class.terms_for_display | [:production_name, :venue_name, :exif_creator, :exif_creator_address, :exif_description,
+    terms = self.class.terms_for_display | [:production_name, :venue_name, :exif_creator, :exif_creator_address, :exif_description,
       :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
+    terms - [:subject]
   end
 
   def terms_for_editing
