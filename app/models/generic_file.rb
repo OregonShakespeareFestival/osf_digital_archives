@@ -113,6 +113,16 @@ class GenericFile < ActiveFedora::Base
     discover_groups.include?('public')
   end
 
+  def public_metadata_terms
+    terms_for_editing
+  end
+
+  def public_metadata
+    public_metadata_terms.map { |f|
+      {f => self[f]}
+    }.reduce({}, :update)
+  end
+
   private
 
   def sanitized_exif_value(v)

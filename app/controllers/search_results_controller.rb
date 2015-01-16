@@ -58,19 +58,17 @@ class SearchResultsController < CatalogController
 
       # TODO: Update urls to use GenericFile properties.
       {
-        'date_created'  => file.date_created.first,
-        'description'   => file.description.first,
+        
         'id'            => d[:id][6..-1],
-        'keywords'      => file.tag,
-        'mp4_url'       => sufia.download_path(file, datastream_id: 'mp4'),
-        'production'    => file.production_name.first,
-        'venue'         => file.venue_name.first,
+
         'visibility'    => file.visibility,
-        'title'         => d[:desc_metadata__title_tesim].first,
-        'thumbnail_url' => sufia.download_path(file, datastream_id: 'thumbnail'),
-        'type'          => d[:desc_metadata__resource_type_tesim].first,
         'url'           => sufia.download_path(file),
-        'webm_url'      => sufia.download_path(file, datastream_id: 'webm')
+        'thumbnail_url' => sufia.download_path(file, datastream_id: 'thumbnail'),
+       
+        'webm_url'      => sufia.download_path(file, datastream_id: 'webm'),
+        'mp4_url'       => sufia.download_path(file, datastream_id: 'mp4'),
+
+        'metadata' => file.public_metadata
       }
     }
 
