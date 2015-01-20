@@ -6,7 +6,16 @@ module GenericFileProductionHelper
   def production_names_for_select
     productions = ProductionCredits::Production.order(:production_name)
     productions.collect{|p| {"#{p.production_name} - #{p.open_on.year}" => p.production_name}}.reduce({}, :update)
+  end
 
+  def productions_for_select
+    productions = ProductionCredits::Production.order(:production_name)
+    productions.collect{|p| {"#{p.production_name} - #{p.open_on.year}" => p.id}}.reduce({}, :update)
+  end
+
+  def venues_for_select
+    venues = ProductionCredits::Venue.order(:name)
+    venues.collect{|v| {"#{v.name}" => v.id}}.reduce({}, :update)
   end
 
   def venue_names

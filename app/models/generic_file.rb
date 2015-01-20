@@ -13,13 +13,20 @@ class GenericFile < ActiveFedora::Base
   has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true
 
   has_metadata 'production_data', type: Datastreams::ProductionDataDatastream
-  has_attributes :production_name, :venue_name, datastream: :production_data, multiple: true
+  has_attributes :production_name, :production_id, :venue_name, :venue_id, datastream: :production_data, multiple: true
 
   has_metadata 'date_created_stream', type: Datastreams::DateCreatedDatastream
   has_attributes :asset_create_year, datastream: :date_created_stream, multiple: false
 
+  after_initialize :add_accessible_attributes
+
+  def add_accessible_attributes
+    self._accessible_attributes[:default] << :production_id << :production_name << :venue_id << :venue_name << :asset_create_year
+  end
+  
+
   def terms_for_display
-    terms = self.class.terms_for_display | [:production_name, :venue_name, :exif_creator, :exif_creator_address, :exif_description,
+    terms = self.class.terms_for_display | [:production_id, :venue_id, :exif_creator, :exif_creator_address, :exif_description,
       :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
     terms - [:subject]
   end
@@ -115,7 +122,7 @@ class GenericFile < ActiveFedora::Base
   end
 
   def public_metadata_terms
-    terms_for_editing
+    terms_for_editing | [:production_name, :venue_name]
   end
 
   def public_metadata

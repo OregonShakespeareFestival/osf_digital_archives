@@ -2,7 +2,6 @@ class GenericFilesController < ApplicationController
   include Sufia::Controller
   include Sufia::FilesControllerBehavior
 
-  before_filter :add_accessible_attributes, except: [:index, :audit]
 
   #overides method in /sufia-4.0.0/app/controllers/concerns/sufia/files_controller_behavior.rb
   def update_metadata
@@ -23,15 +22,17 @@ class GenericFilesController < ApplicationController
       @generic_file.asset_create_year = date_created.year.to_s
     end
 
+    unless params[:generic_file][:production_id].empty?
+      @generic_file.production_name = ProductionCredits::Production.find(params[:generic_file][:production_id]).production_name
+    end
+
+    unless params[:generic_file][:venue_id].empty?
+      @generic_file.venue_name = ProductionCredits::Venue.find(params[:generic_file][:venue_id]).name
+    end
+
     actor.update_metadata(params[:generic_file], params[:visibility])
 
   end
-
-  protected
-    #Refactor: isn't there a way to do this on the model?
-    def add_accessible_attributes
-      @generic_file.class._accessible_attributes[:default] << :production_name << :venue_name
-    end
 
 end
 
