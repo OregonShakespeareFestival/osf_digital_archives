@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/OregonShakespeareFestival/sufia.git
-  revision: 711d48a44db485916b0b7fe21aa349a50eddacc9
+  revision: d61a9392b5003610a8e601d60f9c3083e1fb5b43
   branch: master
   specs:
     sufia (4.1.0)
