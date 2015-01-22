@@ -17,19 +17,6 @@ class GenericFilesController < ApplicationController
       params.delete :visibility
     end
 
-    if params[:generic_file][:date_created] && !params[:generic_file][:date_created].scan(/(\d{1,2}[-\/]\d{1,2}[-\/]\d{4})|(\d{4}[-\/]\d{1,2}[-\/]\d{1,2})/).empty?
-      date_created = Date.parse(params[:generic_file][:date_created])
-      @generic_file.asset_create_year = date_created.year.to_s
-    end
-
-    # if params[:generic_file][:date_created] && !params[:generic_file][:production_id].empty?
-    #   @generic_file.production_name = ProductionCredits::Production.find(params[:generic_file][:production_id]).production_name
-    # end
-
-    # if params[:generic_file][:venue_id] && !params[:generic_file][:venue_id].empty?
-    #   @generic_file.venue_name = ProductionCredits::Venue.find(params[:generic_file][:venue_id]).name
-    # end
-
     actor.update_metadata(params[:generic_file], params[:visibility])
 
   end

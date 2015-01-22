@@ -25,6 +25,7 @@ class GenericFile < ActiveFedora::Base
     data = {}
     data.merge!({production_name: production.production_name}) if production
     data.merge!({venue_name: venue.name}) if venue
+    data.merge!({asset_create_year: year_created}) if year_created
     self.attributes = data
   end
 
@@ -111,7 +112,7 @@ class GenericFile < ActiveFedora::Base
   end
 
   def production
-    return if production_id.empty?
+    return if !production_id || production_id.empty? || production_id.first.nil?
     ProductionCredits::Production.find(production_id).first
   end
 
@@ -124,6 +125,12 @@ class GenericFile < ActiveFedora::Base
       venue = production.venue
     end
     venue
+  end
+
+  def year_created
+    if date_created && !date_created.empty? && !date_created.first.scan(/(\d{1,2}[-\/]\d{1,2}[-\/]\d{4})|(\d{4}[-\/]\d{1,2}[-\/]\d{1,2})/).empty?
+      Date.parse(date_created.first).year.to_s
+    end
   end
 
   def discoverable?
