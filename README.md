@@ -46,6 +46,9 @@ Enter the virtual box
 
 ### Preparation
 
+Install exiftool
+    yum install perl-Image-ExifTool
+
 Install the gems
 
     bundle

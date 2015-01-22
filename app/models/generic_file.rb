@@ -19,6 +19,14 @@ class GenericFile < ActiveFedora::Base
   has_attributes :asset_create_year, datastream: :date_created_stream, multiple: false
 
   after_initialize :add_accessible_attributes
+  before_save :set_calculated_fields
+
+  def set_calculated_fields
+    data = {}
+    data.merge!({production_name: production.production_name}) if production
+    data.merge!({venue_name: venue.name}) if venue
+    self.attributes = data
+  end
 
   def add_accessible_attributes
     self._accessible_attributes[:default] << :production_id << :production_name << :venue_id << :venue_name << :asset_create_year
@@ -60,7 +68,8 @@ class GenericFile < ActiveFedora::Base
 
     #rehash with exif_ prefix to map to attributes
     # can this be done with iteration and self.send to build the hash?
-    update_attributes Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
+    self.attributes = Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
+    self.save!
 
   end
 
@@ -102,13 +111,13 @@ class GenericFile < ActiveFedora::Base
   end
 
   def production
-    return nil unless production_name
-    ProductionCredits::Production.find_by(production_name: production_name)
+    return if production_id.empty?
+    ProductionCredits::Production.find(production_id).first
   end
 
   def venue
-    unless venue_name.empty? then
-      venue = ProductionCredits::Venue.find_by_name_or_alias(venue_name.first)
+    if venue_id && !venue_id.empty? && !venue_id.first.nil? then
+      venue = ProductionCredits::Venue.find(venue_id).first
     end
 
     if !venue && production
