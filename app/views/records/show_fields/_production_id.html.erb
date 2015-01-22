@@ -1,0 +1,6 @@
+<% record.production_id.each do |rtype| %>
+  
+  <%= ProductionCredits::Production.find(rtype).name if rtype %>
+  <br />
+<% end %>
+

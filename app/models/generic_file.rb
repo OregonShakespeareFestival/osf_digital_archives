@@ -13,13 +13,29 @@ class GenericFile < ActiveFedora::Base
   has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true
 
   has_metadata 'production_data', type: Datastreams::ProductionDataDatastream
-  has_attributes :production_name, :venue_name, datastream: :production_data, multiple: true
+  has_attributes :production_name, :production_id, :venue_name, :venue_id, datastream: :production_data, multiple: true
 
   has_metadata 'date_created_stream', type: Datastreams::DateCreatedDatastream
   has_attributes :asset_create_year, datastream: :date_created_stream, multiple: false
 
+  after_initialize :add_accessible_attributes
+  before_save :set_calculated_fields
+
+  def set_calculated_fields
+    data = {}
+    data.merge!({production_name: production.production_name}) if production
+    data.merge!({venue_name: venue.name}) if venue
+    data.merge!({asset_create_year: year_created}) if year_created
+    self.attributes = data
+  end
+
+  def add_accessible_attributes
+    self._accessible_attributes[:default] << :production_id << :production_name << :venue_id << :venue_name << :asset_create_year
+  end
+  
+
   def terms_for_display
-    terms = self.class.terms_for_display | [:production_name, :venue_name, :exif_creator, :exif_creator_address, :exif_description,
+    terms = self.class.terms_for_display | [:production_id, :venue_id, :exif_creator, :exif_creator_address, :exif_description,
       :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
     terms - [:subject]
   end
@@ -53,7 +69,8 @@ class GenericFile < ActiveFedora::Base
 
     #rehash with exif_ prefix to map to attributes
     # can this be done with iteration and self.send to build the hash?
-    update_attributes Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
+    self.attributes = Hash[ exif_data.map{ |k,v| ["exif_#{k}", sanitized_exif_value(v)] } ]
+    self.save!
 
   end
 
@@ -95,13 +112,13 @@ class GenericFile < ActiveFedora::Base
   end
 
   def production
-    return nil unless production_name
-    ProductionCredits::Production.find_by(production_name: production_name)
+    return if !production_id || production_id.empty? || production_id.first.nil?
+    ProductionCredits::Production.find(production_id).first
   end
 
   def venue
-    unless venue_name.empty? then
-      venue = ProductionCredits::Venue.find_by_name_or_alias(venue_name.first)
+    if venue_id && !venue_id.empty? && !venue_id.first.nil? then
+      venue = ProductionCredits::Venue.find(venue_id).first
     end
 
     if !venue && production
@@ -110,12 +127,18 @@ class GenericFile < ActiveFedora::Base
     venue
   end
 
+  def year_created
+    if date_created && !date_created.empty? && !date_created.first.scan(/(\d{1,2}[-\/]\d{1,2}[-\/]\d{4})|(\d{4}[-\/]\d{1,2}[-\/]\d{1,2})/).empty?
+      Date.parse(date_created.first).year.to_s
+    end
+  end
+
   def discoverable?
     discover_groups.include?('public')
   end
 
   def public_metadata_terms
-    terms_for_editing
+    terms_for_editing | [:production_name, :venue_name]
   end
 
   def public_metadata

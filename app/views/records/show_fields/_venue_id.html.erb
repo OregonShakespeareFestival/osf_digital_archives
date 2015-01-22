@@ -1,0 +1,5 @@
+<% record.venue_id.each do |rtype| %>
+  <%= ProductionCredits::Venue.find(rtype).name if rtype%>
+  <br />
+<% end %>
+
