@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # mount ResqueWeb::Engine => "/resque_web"
   # ResqueWeb::Engine.eager_load!
 
+  get ':action' => 'static#:action', constraints: { action: /public_about|public_terms/ }, as: :static
+
+
   mount ProductionCredits::Engine, at: "/production_credits"
   match 'search_results' => 'search_results#index', via: [:get, :post]
 
