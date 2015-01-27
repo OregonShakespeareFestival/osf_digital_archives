@@ -86,8 +86,11 @@ You can reach the application at [http://localhost:3000/](http://localhost:3000/
 
     QUEUE=* rake resque:work
 
-You can reach a resque dashboard at [http://localhost:3000/resque_web](http://localhost:3000/resque_web)
-
+#### Admin
+    in console
+    u=User.find_by_email('xxx')
+    u.group_list = 'admin'
+    u.save!
 
 #### STAGING
 
