@@ -1,0 +1,5 @@
+<% record.work_id.each do |rtype| %>
+  <%= ProductionCredits::Work.find(rtype).title if rtype%>
+  <br />
+<% end %>
+

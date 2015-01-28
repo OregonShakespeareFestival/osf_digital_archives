@@ -56,8 +56,9 @@ class CatalogController < ApplicationController
     # config.add_facet_field solr_name("desc_metadata__publisher", :facetable), label: "Publisher", limit: 5
     config.add_facet_field solr_name("file_format", :facetable), label: "File Format", limit: 5
 
-    config.add_facet_field solr_name("production_name", :facetable), label: "Production", limit: 5
+    config.add_facet_field solr_name("production_name", :facetable), label: "Production", limit: 10
     config.add_facet_field solr_name("venue_name", :facetable), label: "Venue", limit: 5
+    config.add_facet_field solr_name("work_name", :facetable), label: "Work", limit: 10
 
     config.add_facet_field solr_name("asset_create_year", :facetable, type: :integer), label: "Year Created", limit: 5
 

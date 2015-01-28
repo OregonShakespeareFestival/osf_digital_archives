@@ -13,7 +13,7 @@ class GenericFile < ActiveFedora::Base
   has_attributes :exif_subject, :exif_keywords, datastream: :exifMetadata, multiple: true
 
   has_metadata 'production_data', type: Datastreams::ProductionDataDatastream
-  has_attributes :production_name, :production_id, :venue_name, :venue_id, datastream: :production_data, multiple: true
+  has_attributes :production_name, :production_id, :venue_name, :venue_id, :work_name, :work_id, datastream: :production_data, multiple: true
 
   has_metadata 'date_created_stream', type: Datastreams::DateCreatedDatastream
   has_attributes :asset_create_year, datastream: :date_created_stream, multiple: false
@@ -25,17 +25,18 @@ class GenericFile < ActiveFedora::Base
     data = {}
     data.merge!({production_name: production.production_name}) if production
     data.merge!({venue_name: venue.name}) if venue
+    data.merge!({work_name: work.title}) if work
     data.merge!({asset_create_year: year_created}) if year_created
     self.attributes = data
   end
 
   def add_accessible_attributes
-    self._accessible_attributes[:default] << :production_id << :production_name << :venue_id << :venue_name << :asset_create_year
+    self._accessible_attributes[:default] << :production_id << :production_name << :venue_id << :venue_name << :asset_create_year << :work_name << :work_id
   end
   
 
   def terms_for_display
-    terms = self.class.terms_for_display | [:production_id, :venue_id, :exif_creator, :exif_creator_address, :exif_description,
+    terms = self.class.terms_for_display | [:production_id, :venue_id, :work_id, :exif_creator, :exif_creator_address, :exif_description,
       :exif_image_description, :exif_keywords, :exif_subject, :exif_usage_terms]
     terms - [:subject]
   end
@@ -111,6 +112,11 @@ class GenericFile < ActiveFedora::Base
 
   end
 
+  def work
+    return if !work_id || work_id.empty? || work_id.first.nil?
+    ProductionCredits::Work.find(work_id).first
+  end
+
   def production
     return if !production_id || production_id.empty? || production_id.first.nil?
     ProductionCredits::Production.find(production_id).first
@@ -138,7 +144,7 @@ class GenericFile < ActiveFedora::Base
   end
 
   def public_metadata_terms
-    terms_for_editing | [:production_name, :venue_name]
+    terms_for_editing | [:production_name, :venue_name, :work_name]
   end
 
   def public_metadata

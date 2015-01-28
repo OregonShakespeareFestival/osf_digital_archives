@@ -125,6 +125,8 @@ class SearchResultsController < CatalogController
           else
             {:'!venue_name_sim' => ["Elizabethan", "Thomas", "Angus Bowmer", "Green Show"]}
           end
+        when 'work'
+          {work_id_sim: value}
         else {}
       end
     end

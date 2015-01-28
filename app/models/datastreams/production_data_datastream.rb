@@ -5,6 +5,8 @@ class Datastreams::ProductionDataDatastream < ActiveFedora::OmDatastream
     t.production_id index_as: [:stored_sortable, :facetable], type: :integer
     t.venue_name index_as: [:stored_searchable, :facetable]
     t.venue_id index_as: [:stored_sortable, :facetable], type: :integer
+    t.work_name index_as: [:stored_searchable, :facetable]
+    t.work_id index_as: [:stored_sortable, :facetable], type: :integer
   end
 
   def self.xml_template
