@@ -149,7 +149,11 @@ class GenericFile < ActiveFedora::Base
 
   def public_metadata
     public_metadata_terms.map { |f|
-      {f => self[f]}
+      if f == :date_created
+        {f => Date.parse(self['date_created'].first).strftime("%m/%d/%Y")}
+      else
+        {f => self[f]}
+      end
     }.reduce({}, :update)
   end
 
