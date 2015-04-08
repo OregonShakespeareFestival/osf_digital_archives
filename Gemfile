@@ -43,7 +43,12 @@ gem 'spring', group: :development
 gem 'sufia', github: 'OregonShakespeareFestival/sufia', branch: 'fedora4'
 # point at local repo $ bundle config local.SUFIA ../path/to/sufia
 
-gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
+#gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
+gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
+
+gem 'resque'
+
+#gem 'rails_admin'
 
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
@@ -51,7 +56,7 @@ gem 'devise-guests', '~> 0.3'
 # gem 'resque-web', require: 'resque_web'
 
 gem 'production_credits', path: 'vendor/engines/production_credits'
-gem 'rails_admin'
+#gem 'rails_admin'
 
 gem 'slim-rails'
 

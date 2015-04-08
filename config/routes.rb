@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  mount RailsAdmin::Engine => '/production_credits/admin', as: 'rails_admin'
+#  mount RailsAdmin::Engine => '/production_credits/admin', as: 'rails_admin'
   blacklight_for :catalog
   devise_for :users
 
