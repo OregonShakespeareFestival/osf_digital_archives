@@ -71,6 +71,30 @@ ActiveRecord::Schema.define(version: 20141110233153) do
   add_index "featured_works", ["generic_file_id"], name: "index_featured_works_on_generic_file_id"
   add_index "featured_works", ["order"], name: "index_featured_works_on_order"
 
+  create_table "file_download_stats", force: true do |t|
+    t.datetime "date"
+    t.integer  "downloads"
+    t.string   "file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "file_download_stats", ["file_id"], name: "index_file_download_stats_on_file_id"
+  add_index "file_download_stats", ["user_id"], name: "index_file_download_stats_on_user_id"
+
+  create_table "file_view_stats", force: true do |t|
+    t.datetime "date"
+    t.integer  "views"
+    t.string   "file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "file_view_stats", ["file_id"], name: "index_file_view_stats_on_file_id"
+  add_index "file_view_stats", ["user_id"], name: "index_file_view_stats_on_user_id"
+
   create_table "follows", force: true do |t|
     t.integer  "followable_id",                   null: false
     t.string   "followable_type",                 null: false
@@ -237,6 +261,17 @@ ActiveRecord::Schema.define(version: 20141110233153) do
     t.datetime "updated_at"
   end
 
+  create_table "user_stats", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "date"
+    t.integer  "file_views"
+    t.integer  "file_downloads"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_stats", ["user_id"], name: "index_user_stats_on_user_id"
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -271,6 +306,7 @@ ActiveRecord::Schema.define(version: 20141110233153) do
     t.text     "group_list"
     t.datetime "groups_last_update"
     t.string   "linkedin_handle"
+    t.string   "orcid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

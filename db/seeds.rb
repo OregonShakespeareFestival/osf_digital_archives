@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-#User.find_or_create_by!(email: "andrewkr@osfashland.org") { |user| user.password = "osfarchive2014"; user.display_name = "Andrew Krug" }
+User.find_or_create_by!(email: "andrewkr@osfashland.org") { |user| user.password = "osfarchive2014"; user.display_name = "Andrew Krug" }
 #User.find_or_create_by!(email: "joelf@osfashland.org") { |user| user.password = "osfarchive2014"; user.display_name = "Joel Ferrier" }
 #User.find_or_create_by!(email: "mariad@osfashland.org") { |user| user.password = "osfarchive2014"; user.display_name = "Maria Deweerdt" }
 #User.find_or_create_by!(email: "debrag@osfashland.org") { |user| user.password = "osfarchive2014"; user.display_name = "Debra Griffith" }
@@ -16,14 +16,14 @@
 #User.find_or_create_by!(email: "jeff.parr@codingzeal.com") { |user| user.password = "osfarchive2014"; user.display_name = "Jeff Parr" }
 #User.find_or_create_by!(email: "sean.culver@codingzeal.com") { |user| user.password = "osfarchive2014"; user.display_name = "Sean Culver" }
 
-admin = User.new({
-      :email => "sufiaadmin@osfashland.org",
-      :password => "password",
-      :password_confirmation => "password",
-      :group_list => "admin" # this is the important part
-    })
+#admin = User.new({
+#      :email => "sufiaadmin@osfashland.org",
+#      :password => "password",
+#      :password_confirmation => "password",
+#      :group_list => "admin" # this is the important part
+#    })
 
-admin.save!
+#admin.save!
 
 
 if Module.const_defined?(:ProductionCredits)
