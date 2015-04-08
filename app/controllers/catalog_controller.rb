@@ -1,8 +1,5 @@
 #osf -*- coding: utf-8 -*-
 # -*- encoding : utf-8 -*-
-include Hydra::Catalog
-include Sufia::Catalog
-
 class CatalogController < ApplicationController
   include Hydra::Catalog
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
