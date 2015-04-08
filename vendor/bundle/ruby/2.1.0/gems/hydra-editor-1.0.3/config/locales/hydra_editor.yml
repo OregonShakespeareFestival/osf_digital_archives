@@ -1,0 +1,12 @@
+en:
+  hydra_editor:
+    choose_type:
+      title: 'Create a New Record'
+      next:  'Next'
+    edit:
+      title: 'Edit %s'
+    form:
+      title: 'Descriptions'
+      required_fields: 'indicates required fields'
+    new:
+      title: 'Create a New %s Record'

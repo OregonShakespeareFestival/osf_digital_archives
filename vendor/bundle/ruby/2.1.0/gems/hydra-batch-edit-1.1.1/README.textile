@@ -1,0 +1,120 @@
+h1. hydra-batch-edit
+
+!https://travis-ci.org/projecthydra/hydra-batch-edit.png!:https://travis-ci.org/projecthydra/hydra-batch-edit !https://badge.fury.io/rb/hydra-batch-edit.png!:http://badge.fury.io/rb/hydra-batch-edit
+
+Batch Editing Functionality for Hydra Heads
+
+*This is Alpha Software!*  While working on a specific Hydra Head with specific content & use cases, we added batch editing functionality.  We wrote the code as a separate gem so that others can use this as a starting point, but _you will have to modify the code_ to get this to work.  If other Hydra partners start using the gem, it will become more immediately useful & configurable out of the box.  At that point, someone will delete this message.
+
+As far as we can tell, the code is sufficiently "test-coveraged" and html/javascript is "fall-backable".
+
+The initial code for this gem was written by "MediaShelf":http://yourmediashelf.com on behalf of Northwestern University.  It is used in the NWU Digital Image Library (DIL) Hydra Head.  As with all Hydra code, this software is distributed under the "Apache 2 License":http://www.apache.org/licenses/LICENSE-2.0.
+
+h2. Features
+
+The main thrust of the re-usable functionality this gem aims to provide:
+
+# Jackie User constructs a batch of objects from Blacklight/Hydra search results
+# When Jackie has selected everything for the batch, she clicks a button to proceed to the next step
+# (Might want to have a sanity check page here where Jackie sees all of the objects she has selected.  We skipped that step for now.)
+# Before displaying the next step, a before_filter in the controller makes sure Jackie has edit permissions for each of the objects, filtering out the non-editable content and notifying Jackie that they've been removed from her batch
+# Jackie sees a form for specifying what changes to apply to the batch
+# Jackie submits her changes and they are applied to each of the objects in the batch
+# Before applying the submitted updates, the before_filter in the controller checks (again) that Jackie has edit permissions for everything in the batch
+# The BatchUpdatesController#update method applies Jackie's changes to each of the objects in the batch
+
+*Note* As of version 1.0.0 The batches are tracke using the batches behavior in hydra-collections.  They are not persisted between page changes and only exist on the current page.
+
+*Note* Version 0.3.1 and previous The batches are tracked as a list of pids _in the user session_.  They are not persisted.
+
+h2. Installing
+
+In your Gemfile, add
+
+<pre>gem 'hydra-batch-edit'</pre> 
+
+# Call batch_edit_tools view helper in your search result page template.  We recommend putting it in catalog/_sort_and_per_page.html.erb
+# Call batch_edit_continue in the search result page template.  We put it in catalog/index.html
+# Call batch_edit_select(document) [passing in the solr document] on the index partial that's rendered for each search result
+# Add routes to config/routes.rb 
+<pre>
+  Hydra::BatchEdit.add_routes(self)
+</pre>
+# Add javascript to app/assets/javascripts/application.js
+<pre>
+  //= require batch_edit
+</pre>
+# Add css to app/assets/stylesheets/application.css
+<pre>
+  *= require batch_edit
+</pre>
+  
+
+
+
+h2. Dependencies
+
+hydra-head
+hydra-collections
+bootstrap
+blacklight.js
+coffeescript & scss
+
+  
+h2. Customizing
+
+*This is Alpha Software* These instructions assume that you know how to work with rails and are familiar with Hydra
+
+h3. What you will need to do
+
+You will *definitely* need to override the edit form. `app/views/batch_edits/edit.html.erb`
+You will probably need to override BatchEditController#update 
+You might need to override BatchEditController#edit
+
+h3. Extend Hydra::BatchEditController update and/or edit methods
+
+Example app/controllers/batch_updates_controller.rb
+
+<pre>
+  class BatchEditController < ApplicationController
+    include Hydra::BatchEditBehavior
+    def update
+      batch.each do |doc_id|
+        obj = ActiveFedora::Base.find(doc_id, :cast=>true)
+        type = obj.class.to_s.underscore.to_sym
+        obj.update_attributes(params[type])
+        obj.do_something_special
+        obj.save
+      end
+      flash[:notice] = "Batch update complete"
+      clear_batch!
+      redirect_to catalog_index_path
+    end
+  end
+</pre>
+
+h3. Override Edit View
+
+Example app/views/batch_edits/edit.html.erb
+
+<pre>
+  <%= form_for MyModel.new, :url=>batch_edit_path, :method=>:put do |f| %>
+
+    <%= f.label :title, "Title:"  %>
+    <%= f.text_field :title %>
+
+    <%= f.label :description, "Description:"  %>
+    <%= f.text_field :description %>
+
+    <%= f.label :license, "License:"  %>
+    <%= f.text_field :license %>
+    
+    <%= f.label :access_policy, "Access Policy:"  %>
+    <%= f.select :access_policy, ... %>
+
+    <%# note the class submits-batches causes the batch ids to be returned with the updates %>
+    <%= f.submit "Save changes", :class=>'submits-batches btn btn-primary'%>
+
+  <% end %>
+</pre>
+

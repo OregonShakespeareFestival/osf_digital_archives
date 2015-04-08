@@ -1,0 +1,2 @@
+gem 'rspec-rails', '~> 3.1', group: :test
+gem 'rspec-its'
