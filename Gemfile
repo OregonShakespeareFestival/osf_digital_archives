@@ -46,6 +46,12 @@ gem 'sufia', github: 'OregonShakespeareFestival/sufia', branch: 'fedora4'
 #gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
 
+
+#Add rsolr to project change in blacklight 6.0
+#
+gem 'rsolr', '~> 1.0.6'
+
+
 gem 'resque'
 
 #gem 'rails_admin'
