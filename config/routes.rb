@@ -2,6 +2,7 @@
 
 
 Rails.application.routes.draw do
+  mount BrowseEverything::Engine => '/browse'
 
   
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
