@@ -19,6 +19,7 @@
 /public/uploads
 /public/assets
 /sufia
+/vendor/bundle/*
 /vendor/engines/production_credits/spec/dummy/db/*.sqlite3
 /vendor/engines/production_credits/spec/dummy/log/*.log
 /vendor/engines/production_credits/spec/dummy/tmp/
