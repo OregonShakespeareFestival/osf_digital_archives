@@ -75,7 +75,7 @@ Open several tabs and `vagrant ssh` into each of them.
 
 #### Rails Server (application server)
 
-    rails s
+    rails s -b 0.0.0.0
 
 You can reach the application at [http://localhost:3000/](http://localhost:3000/)
 
