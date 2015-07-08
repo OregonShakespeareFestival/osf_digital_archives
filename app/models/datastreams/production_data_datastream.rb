@@ -9,7 +9,7 @@ class Datastreams::ProductionDataDatastream < ActiveFedora::OmDatastream
     Nokogiri::XML.parse("<fields/>")
   end
 
-  def prefix
-    ''
-  end
+  # def prefix
+  #   ''
+  # end
 end

@@ -43,6 +43,7 @@ class SearchResultsController < CatalogController
     facets.merge!(filters_to_query_values(filters)) unless !filters || filters.empty?
     q_params = {q: query, f: facets, page: page, per_page: per_page }
 
+    #todo: find where where get_search_results originates Sufia::Catalog? Hydra::Catalog?
     (res, res_document_list) = get_search_results(q_params)
     response = build_response(res.docs)
     response.merge({ 

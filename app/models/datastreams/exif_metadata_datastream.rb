@@ -16,8 +16,8 @@ class Datastreams::ExifMetadataDatastream < ActiveFedora::OmDatastream
 		Nokogiri::XML.parse("<fields/>")
 	end
 
-	def prefix
-		'osf_'
-	end
+	# def prefix
+	# 	'osf_'
+	# end
 
 end

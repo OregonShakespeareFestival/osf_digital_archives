@@ -30,7 +30,7 @@ class GenericFilesController < ApplicationController
   protected
     #Refactor: isn't there a way to do this on the model?
     def add_accessible_attributes
-      @generic_file.class._accessible_attributes[:default] << :production_name << :venue_name
+      # @generic_file.class._accessible_attributes[:default] << :production_name << :venue_name
     end
 
 end

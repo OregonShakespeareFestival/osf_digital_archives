@@ -3,7 +3,7 @@ class GenericFile < ActiveFedora::Base
 
   # Overrides Sufia defined attributes so they aren't multiple
   # sufia-models/app/models/concerns/sufia/generic_file/metadata.rb
-  has_attributes :title, :description, :rights, :date_created, :subject, :resource_type, datastream: :descMetadata, multiple: false
+  # has_attributes :title, :description, :rights, :date_created, :subject, :resource_type, datastream: :descMetadata, multiple: false
 
   # New attributes
 
